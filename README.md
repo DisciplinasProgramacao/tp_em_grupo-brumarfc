@@ -7,7 +7,7 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 * Fernanda Souza Torres Teixeira
 * Guilherme Batista Fernandes Coelho
 * João Paulo Compos Almeida
-* Nome completo do aluno 4
+* Maria Luiza de Oliveira Campos
 
 ## Professores responsáveis
 
