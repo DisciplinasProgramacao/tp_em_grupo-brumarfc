@@ -1,16 +1,14 @@
 package codigo;
 
+import java.util.ArrayList;
+
 public class Trecho {
     private int idTrecho;
     private String destino;
     private String origem;
-    // falta o hashMap voos
+    private ArrayList<String> voo;
 
-    public Voo gerarVoo (Voo voo) {
+    public Voo gerarVoo(Voo voo) {
 
-    }
-
-    public Voo removerVoo (int idVoo) {
-        
     }
 }

@@ -1,19 +1,16 @@
 package codigo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Voo {
     private int idVoo;
     private int idTrecho;
     private Date data;
-    private List passagens;
+    private ArrayList<Bilhete> passagens;
 
-    public Voo addBilhete (Bilhete bilhete) {
+    public Voo addBilhete(Bilhete bilhete) {
 
-    }
-
-    public void removerBilhete (int idBilhete) {
-        
     }
 }
