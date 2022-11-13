@@ -7,6 +7,12 @@ public class Cliente {
     private int idCliente;
     private String nome;
     private String cpf;
-    private Date aniversario;
+    private String aniversario;
     private ArrayList<Bilhete> viagens;
+
+    public Cliente (String nom, String cpf, String aniversario){
+        this.nome = nom;
+        this.cpf = cpf;
+        this.aniversario = aniversario;
+    }
 }

@@ -5,56 +5,25 @@ import org.puc.entity.bilhete.Bilhete;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Voo {
     private int idVoo;
-    private int idTrecho;
-    private Date data;
+    private static int incrementoVoo = 0;
+    private LinkedList<Trecho> trechos;
+    private String data;
     private ArrayList<Bilhete> passagens;
 
-    private BigDecimal precoBase;
-
-    public BigDecimal getPrecoBase() {
-        return precoBase;
-    }
-
-    public void setPrecoBase(BigDecimal precoBase) {
-        this.precoBase = precoBase;
-    }
-
-    public Voo addBilhete(Bilhete bilhete) {
-        return null;
-    }
-
-    public void setIdVoo(int idVoo) {
-        this.idVoo = idVoo;
-    }
-
-    public void setIdTrecho(int idTrecho) {
-        this.idTrecho = idTrecho;
-    }
-
-    public void setData(Date data) {
+    public Voo(String data) {
         this.data = data;
+        this.idVoo = incrementoVoo ++;
+        trechos = new LinkedList<Trecho>();
     }
 
-    public void setPassagens(ArrayList<Bilhete> passagens) {
-        this.passagens = passagens;
+
+    public void addTrecho(Trecho trecho) {
+        this.trechos.add(trecho);
     }
 
-    public int getIdVoo() {
-        return idVoo;
-    }
-
-    public int getIdTrecho() {
-        return idTrecho;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public ArrayList<Bilhete> getPassagens() {
-        return passagens;
-    }
+   
 }
