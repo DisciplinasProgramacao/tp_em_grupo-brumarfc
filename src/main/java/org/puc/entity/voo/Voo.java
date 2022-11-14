@@ -13,6 +13,7 @@ public class Voo {
     private LinkedList<Trecho> trechos;
     private String data;
     private ArrayList<Bilhete> passagens;
+    private BigDecimal precoBase;
 
     public Voo(String data) {
         this.data = data;
@@ -25,5 +26,8 @@ public class Voo {
         this.trechos.add(trecho);
     }
 
+    public BigDecimal getPrecoBase() {
+        return this.precoBase;
+    }
    
 }

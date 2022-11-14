@@ -1,11 +1,12 @@
 package org.puc.entity.bilhete;
 
 import org.puc.entity.voo.Voo;
-
+import org.puc.entity.cia.Cliente;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BilheteSimples extends Bilhete {
@@ -14,11 +15,11 @@ public class BilheteSimples extends Bilhete {
     protected int pontosFidelidade;
     protected BigDecimal preco;
     protected Date vencimento;
-    protected List<Voo> voo;
+    protected LinkedList<Voo> voo;
     private int idCliente;
 
-    public BilheteSimples(Date dataVencimento, int cliente, int bilhete, int voos, int pontos, BigDecimal preco) {
-        super(dataVencimento, cliente, bilhete, voos, pontos, preco);
+    public BilheteSimples(String dataVencimento, Cliente cliente, int pontos, BigDecimal preco, LinkedList<Voo> voos) {
+        super(dataVencimento, cliente, pontos, preco, voos);
     }
 
     /**
