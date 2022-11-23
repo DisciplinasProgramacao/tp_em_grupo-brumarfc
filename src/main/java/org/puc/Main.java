@@ -21,7 +21,7 @@ public class Main {
 
     public static int menu(Scanner teclado) {
         System.out.println("------------------------------------------------------");
-        System.out.println("Brumarc Airlines");
+        System.out.println("BrumarFC Airlines");
         System.out.println("1 - Cadastrar cliente");
         System.out.println("2 - Cadastrar trecho");
         System.out.println("3 - Cadastrar voo");
