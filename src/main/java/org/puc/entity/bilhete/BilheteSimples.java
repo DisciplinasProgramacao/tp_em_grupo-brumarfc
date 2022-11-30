@@ -2,6 +2,8 @@ package org.puc.entity.bilhete;
 
 import org.puc.entity.voo.Voo;
 import org.puc.entity.cia.Cliente;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
@@ -9,7 +11,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BilheteSimples extends Bilhete {
+public class BilheteSimples extends Bilhete implements Serializable{
     protected int idBilhete;
     protected int qtdeVoo;
     protected int pontosFidelidade;

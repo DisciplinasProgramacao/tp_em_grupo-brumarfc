@@ -4,6 +4,12 @@ import org.puc.entity.bilhete.BilheteFidelidade;
 import org.puc.entity.bilhete.BilhetePromocional;
 import org.puc.entity.bilhete.BilheteSimples;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -14,10 +20,154 @@ import org.puc.entity.voo.Trecho;
 import org.puc.entity.voo.Voo;
 
 public class Main {
-    static LinkedList<Cliente> clientes = new LinkedList<Cliente>();
+    static LinkedList<Cliente> clientes = new LinkedList<Cliente>(); 
     static LinkedList<Trecho> trechos = new LinkedList<Trecho>();
     static LinkedList<Voo> voos = new LinkedList<Voo>();
     static LinkedList<Bilhete> bilhetes = new LinkedList<Bilhete>();
+
+
+    static String arqDadosClientes = "dadosClientes.bin";
+    static String arqDadosTrechos = "dadosTrechos.bin";
+    static String arqDadosVoos = "dadosVoos.bin";
+    static String arqDadosBilhetes = "dadosBilhetes.bin";
+
+
+    public static void gravarDadosClientes(LinkedList<Cliente> clientes) throws IOException {
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosClientes));
+        for (Cliente cliente : clientes) {
+            obj.writeObject(cliente);
+        }
+        obj.close();
+    }
+
+    public static void gravarDadosTrechos(LinkedList<Trecho> trechos) throws IOException {
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosTrechos));
+        for (Trecho trecho : trechos) {
+            obj.writeObject(trecho);
+        }
+        obj.close();
+    }
+
+    public static void gravarDadosVoos(LinkedList<Voo> voos) throws IOException {
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosVoos));
+        for (Voo voo : voos) {
+            obj.writeObject(voo);
+        }
+        obj.close();
+    }
+
+    public static void gravarDadosBilhetes(LinkedList<Bilhete> bilhetes) throws IOException {
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosBilhetes));
+        for (Bilhete bilhete : bilhetes) {
+            obj.writeObject(bilhete);
+        }
+        obj.close();
+    }
+
+    public static LinkedList<Cliente> carregarDadosClientes(Scanner teclado) {
+        FileInputStream dados;
+        LinkedList<Cliente> todosClientes = new LinkedList<>();
+
+        try {
+            dados = new FileInputStream(arqDadosClientes);
+            ObjectInputStream obj = new ObjectInputStream(dados);
+            while (dados.available() != 0) {
+                Cliente novo = (Cliente) obj.readObject();
+                todosClientes.add(novo);
+            }
+            obj.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Arquivo não encontrado.");
+        } catch (IOException ioEx) {
+            System.out.println("Problema ao abrir o arquivo.");
+            System.out.println("Gentileza reiniciar o sistema.");
+        } catch (ClassNotFoundException cnEx) {
+            System.out.println("Clientes em branco.");
+            todosClientes = new LinkedList<Cliente>();
+            // pausa(teclado);
+        }
+
+        return todosClientes;
+    }
+
+    public static LinkedList<Trecho> carregarDadosTrechos(Scanner teclado) {
+        FileInputStream dados;
+        LinkedList<Trecho> todosTrechos = new LinkedList<>();
+
+        try {
+            dados = new FileInputStream(arqDadosTrechos);
+            ObjectInputStream obj = new ObjectInputStream(dados);
+            while (dados.available() != 0) {
+                Trecho novo = (Trecho) obj.readObject();
+                todosTrechos.add(novo);
+            }
+            obj.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Arquivo não encontrado.");
+        } catch (IOException ioEx) {
+            System.out.println("Problema ao abrir o arquivo.");
+            System.out.println("Gentileza reiniciar o sistema.");
+        } catch (ClassNotFoundException cnEx) {
+            System.out.println("Trechos em branco.");
+            todosTrechos = new LinkedList<Trecho>();
+            // pausa(teclado);
+        }
+
+        return todosTrechos;
+    }
+
+
+    public static LinkedList<Voo> carregarDadosVoos(Scanner teclado) {
+        FileInputStream dados;
+        LinkedList<Voo> todosVoos = new LinkedList<>();
+
+        try {
+            dados = new FileInputStream(arqDadosVoos);
+            ObjectInputStream obj = new ObjectInputStream(dados);
+            while (dados.available() != 0) {
+                Voo novo = (Voo) obj.readObject();
+                todosVoos.add(novo);
+            }
+            obj.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Arquivo não encontrado.");
+        } catch (IOException ioEx) {
+            System.out.println("Problema ao abrir o arquivo.");
+            System.out.println("Gentileza reiniciar o sistema.");
+        } catch (ClassNotFoundException cnEx) {
+            System.out.println("Voos em branco.");
+            todosVoos = new LinkedList<Voo>();
+            // pausa(teclado);
+        }
+
+        return todosVoos;
+    }
+
+    public static LinkedList<Bilhete> carregarDadosBilhetes(Scanner teclado) {
+        FileInputStream dados;
+        LinkedList<Bilhete> todosBilhetes = new LinkedList<>();
+
+        try {
+            dados = new FileInputStream(arqDadosBilhetes);
+            ObjectInputStream obj = new ObjectInputStream(dados);
+            while (dados.available() != 0) {
+                Bilhete novo = (Bilhete) obj.readObject();
+                todosBilhetes.add(novo);
+            }
+            obj.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("Arquivo não encontrado.");
+        } catch (IOException ioEx) {
+            System.out.println("Problema ao abrir o arquivo.");
+            System.out.println("Gentileza reiniciar o sistema.");
+        } catch (ClassNotFoundException cnEx) {
+            System.out.println("Bilhetes em branco.");
+            todosBilhetes = new LinkedList<Bilhete>();
+            // pausa(teclado);
+        }
+
+        return todosBilhetes;
+    }
 
     public static int menu(Scanner teclado) {
         System.out.println("------------------------------------------------------");
@@ -37,8 +187,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        int opcao;
+        clientes = carregarDadosClientes(sc);
+        trechos = carregarDadosTrechos(sc);
+        voos = carregarDadosVoos(sc);
+        bilhetes = carregarDadosBilhetes(sc);
 
+        int opcao;
         do {
             opcao = menu(sc);
             switch (opcao) {
@@ -59,6 +213,7 @@ public class Main {
                     clientes.add(new Cliente("monica", "123458", "24343"));
                     clientes.add(new Cliente("joão", "123459", "24343"));
                     clientes.add(new Cliente("maria", "123461", "24343"));
+                    clientes.add(new Cliente("moana", "123471", "24453"));
                     
                     trechos.add(new Trecho("belo horizonte", "maldivas"));
                     trechos.add(new Trecho("sao paulo", "santa catarina"));
@@ -114,6 +269,10 @@ public class Main {
                     bilhetes.add(bilheteFidel2);
             }
         } while (opcao != 0);
+        gravarDadosBilhetes(bilhetes);
+        gravarDadosClientes(clientes);
+        gravarDadosTrechos(trechos);
+        gravarDadosVoos(voos);
     }
 
 
