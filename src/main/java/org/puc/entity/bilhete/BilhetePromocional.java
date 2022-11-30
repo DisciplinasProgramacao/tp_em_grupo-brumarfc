@@ -20,8 +20,8 @@ public class BilhetePromocional extends Bilhete implements Serializable{
     protected LinkedList<Voo> voo;
     private int idCliente;
 
-    public BilhetePromocional(String dataVencimento, Cliente cliente, int pontos, BigDecimal preco, LinkedList<Voo> voos) {
-        super(dataVencimento, cliente, pontos, preco, voos);
+    public BilhetePromocional(String dataVencimento, int pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
+        super(dataVencimento, pontos, preco, voos, id);
     }
 
     /**

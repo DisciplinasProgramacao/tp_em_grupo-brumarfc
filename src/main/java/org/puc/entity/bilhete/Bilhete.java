@@ -18,13 +18,14 @@ public abstract class Bilhete implements Serializable{
     protected String vencimento;
     protected LinkedList<Voo> voos;
 
-    public Bilhete(String dataVencimento, Cliente cliente, int pontos, BigDecimal preco, LinkedList<Voo> voos) {
+    public Bilhete(String dataVencimento, int pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
         this.vencimento = dataVencimento;
-        this.cliente = cliente;
+        this.cliente = null;
         this.qtdeVoo = voos.size();
         this.pontosFidelidade = pontos;
         this.preco = preco;
         this.voos = voos;
+        this.idBilhete = id;
     }
 
     public void addVoo(Voo voo) {
@@ -32,11 +33,23 @@ public abstract class Bilhete implements Serializable{
         this.qtdeVoo = this.voos.size();
     }
 
+    public boolean disponivel() {
+        return this.cliente == null;
+    }
+
     public int verificaVoos() {
         return 0;
+    }
+
+    public void vender(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public abstract BigDecimal calcularPreco();
 
     public abstract BigDecimal calcularPontos(Bilhete viagens);
+
+    public int getIdBilhete() {
+        return this.idBilhete;
+    }
 }

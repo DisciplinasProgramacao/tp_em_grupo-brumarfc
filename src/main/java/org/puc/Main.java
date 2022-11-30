@@ -1,4 +1,5 @@
 package org.puc;
+
 import org.puc.entity.bilhete.Bilhete;
 import org.puc.entity.bilhete.BilheteFidelidade;
 import org.puc.entity.bilhete.BilhetePromocional;
@@ -20,17 +21,15 @@ import org.puc.entity.voo.Trecho;
 import org.puc.entity.voo.Voo;
 
 public class Main {
-    static LinkedList<Cliente> clientes = new LinkedList<Cliente>(); 
+    static LinkedList<Cliente> clientes = new LinkedList<Cliente>();
     static LinkedList<Trecho> trechos = new LinkedList<Trecho>();
     static LinkedList<Voo> voos = new LinkedList<Voo>();
     static LinkedList<Bilhete> bilhetes = new LinkedList<Bilhete>();
-
 
     static String arqDadosClientes = "dadosClientes.bin";
     static String arqDadosTrechos = "dadosTrechos.bin";
     static String arqDadosVoos = "dadosVoos.bin";
     static String arqDadosBilhetes = "dadosBilhetes.bin";
-
 
     public static void gravarDadosClientes(LinkedList<Cliente> clientes) throws IOException {
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosClientes));
@@ -116,7 +115,6 @@ public class Main {
         return todosTrechos;
     }
 
-
     public static LinkedList<Voo> carregarDadosVoos(Scanner teclado) {
         FileInputStream dados;
         LinkedList<Voo> todosVoos = new LinkedList<>();
@@ -175,6 +173,7 @@ public class Main {
         System.out.println("1 - Cadastrar cliente");
         System.out.println("2 - Cadastrar trecho");
         System.out.println("3 - Cadastrar voo");
+        System.out.println("4 - Comprar bilhetes");
         System.out.println("99 - Popular class");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -183,7 +182,6 @@ public class Main {
         teclado.nextLine();
         return opcao;
     }
-
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -207,20 +205,61 @@ public class Main {
                 case 3:
                     Voo novoVoo = cadastrarVoo(sc);
                     voos.add(novoVoo);
-                case 99: 
-                    clientes.add(new Cliente("lucas", "123456", "20309"));
-                    clientes.add(new Cliente("laura", "123457", "24343"));
-                    clientes.add(new Cliente("monica", "123458", "24343"));
-                    clientes.add(new Cliente("joão", "123459", "24343"));
-                    clientes.add(new Cliente("maria", "123461", "24343"));
-                    clientes.add(new Cliente("moana", "123471", "24453"));
-                    
+                    break;
+                case 4:
+                    Cliente clienteCompra = null;
+                    while (clienteCompra == null) {
+                        System.out.println("Informe o código do cliente:");
+                        int idCliente = sc.nextInt();
+                        for (Cliente item : clientes) {
+                            if (idCliente == item.getIdCliente()) {
+                                clienteCompra = item;
+                                break;
+                            }
+                        }
+                        if (clienteCompra == null) {
+                            System.out.println("Cliente não encontrado, informe um codigo de cli0ente existente");
+                        }
+                    }
+
+                    Bilhete bilheteCompra = null;
+                    boolean bilheteIndisponivel = false;
+                    while (bilheteCompra == null) {
+                        System.out.println("Informe o código do bilhete");
+                        int idBilhete = sc.nextInt();
+                        for (Bilhete item : bilhetes) {
+                            if (idBilhete == item.getIdBilhete()) {
+                                if (item.disponivel()) {
+                                    bilheteCompra = item;
+                                    break;
+                                } else {
+                                    System.out.println("Bilhete indisponível, gentileza informar outro código:");
+                                    bilheteIndisponivel = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (bilheteCompra == null && bilheteIndisponivel == false) {
+                            System.out.println("Bilhete não encontrado, informe um codigo de bilhete existente");
+                        }
+                        bilheteIndisponivel = false;
+                    }
+                    clienteCompra.comprarBilhete(bilheteCompra);
+                    break;
+                case 99:
+                    clientes.add(new Cliente("lucas", "123456", "20309", clientes.size()));
+                    clientes.add(new Cliente("laura", "123457", "24343", clientes.size()));
+                    clientes.add(new Cliente("monica", "123458", "24343", clientes.size()));
+                    clientes.add(new Cliente("joão", "123459", "24343", clientes.size()));
+                    clientes.add(new Cliente("maria", "123461", "24343", clientes.size()));
+                    clientes.add(new Cliente("moana", "123471", "24453", clientes.size()));
+
                     trechos.add(new Trecho("belo horizonte", "maldivas"));
                     trechos.add(new Trecho("sao paulo", "santa catarina"));
                     trechos.add(new Trecho("dublin", "roraima"));
                     trechos.add(new Trecho("fortaleza", "nova iorque"));
                     trechos.add(new Trecho("natal", "rio de janeiro"));
-                    
+
                     Voo voo = new Voo("1221");
                     voo.addTrecho(recuperarTrechos(1));
                     voos.add(voo);
@@ -245,27 +284,32 @@ public class Main {
                     voosBilhete.add(voos.get(1));
                     voosBilhete.add(voos.get(3));
 
-
-                    Bilhete bilheteProm = new BilhetePromocional("24/04/2022", clientes.get(1), 34, new BigDecimal(345.50), voosBilhete);
+                    Bilhete bilheteProm = new BilhetePromocional("24/04/2022", 34, new BigDecimal(345.50), voosBilhete,
+                            bilhetes.size());
                     bilhetes.add(bilheteProm);
 
-                    Bilhete bilheteFidel = new BilheteFidelidade("23/05/2025", clientes.get(3), 22, new BigDecimal(280.00), voosBilhete);
+                    Bilhete bilheteFidel = new BilheteFidelidade("23/05/2025", 22, new BigDecimal(280.00), voosBilhete,
+                            bilhetes.size());
                     bilhetes.add(bilheteFidel);
 
-                    Bilhete bilheteSimples = new BilheteSimples("20/03/2030", clientes.get(5), 12, new BigDecimal(120.88), voosBilhete);
+                    Bilhete bilheteSimples = new BilheteSimples("20/03/2030", 12, new BigDecimal(120.88), voosBilhete,
+                            bilhetes.size());
                     bilhetes.add(bilheteSimples);
 
                     LinkedList<Voo> voosBilhete2 = new LinkedList<Voo>();
                     voosBilhete2.add(voos.get(0));
                     voosBilhete2.add(voos.get(2));
 
-                    Bilhete bilheteSimples2 = new BilheteSimples("23/05/2022", clientes.get(0), 12, new BigDecimal(120.88), voosBilhete2);
+                    Bilhete bilheteSimples2 = new BilheteSimples("23/05/2022", 12, new BigDecimal(120.88), voosBilhete2,
+                            bilhetes.size());
                     bilhetes.add(bilheteSimples2);
 
-                    Bilhete bilheteProm2 = new BilhetePromocional("24/09/2022", clientes.get(2), 34, new BigDecimal(345.50), voosBilhete2);
+                    Bilhete bilheteProm2 = new BilhetePromocional("24/09/2022", 34, new BigDecimal(345.50),
+                            voosBilhete2, bilhetes.size());
                     bilhetes.add(bilheteProm2);
 
-                    Bilhete bilheteFidel2 = new BilheteFidelidade("23/02/2025", clientes.get(4), 22, new BigDecimal(280.00), voosBilhete2);
+                    Bilhete bilheteFidel2 = new BilheteFidelidade("23/02/2025", 22, new BigDecimal(280.00),
+                            voosBilhete2, bilhetes.size());
                     bilhetes.add(bilheteFidel2);
             }
         } while (opcao != 0);
@@ -274,7 +318,6 @@ public class Main {
         gravarDadosTrechos(trechos);
         gravarDadosVoos(voos);
     }
-
 
     // Métodos Switches
 
@@ -285,7 +328,7 @@ public class Main {
         String cpf = sc.nextLine();
         System.out.println("Informe a data de nascimento:");
         String aniversario = sc.nextLine();
-        return new Cliente(nome, cpf, aniversario);
+        return new Cliente(nome, cpf, aniversario, clientes.size());
     }
 
     public static Trecho cadastrarTrecho(Scanner sc) {
