@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.stream.Collector;
 
 import org.puc.entity.bilhete.Bilhete;
 import org.puc.entity.cia.Cliente;
@@ -174,6 +175,7 @@ public class Main {
         System.out.println("2 - Cadastrar trecho");
         System.out.println("3 - Cadastrar voo");
         System.out.println("4 - Comprar bilhetes");
+        System.out.println("5 - Relatório Cliente");
         System.out.println("99 - Popular class");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -214,7 +216,6 @@ public class Main {
                         for (Cliente item : clientes) {
                             if (idCliente == item.getIdCliente()) {
                                 clienteCompra = item;
-                                break;
                             }
                         }
                         if (clienteCompra == null) {
@@ -245,6 +246,16 @@ public class Main {
                         bilheteIndisponivel = false;
                     }
                     clienteCompra.comprarBilhete(bilheteCompra);
+                    break;
+                case 5:
+                    System.out.println("Informe o código do cliente:");
+                    int idCliente = sc.nextInt();
+                    Cliente procurado = procurarCliente(idCliente);
+                    if(procurado == null){
+                        System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+                    }else {
+                        System.out.println(procurado.relatorio());                  
+                    }
                     break;
                 case 99:
                     clientes.add(new Cliente("lucas", "123456", "20309", clientes.size()));
@@ -365,6 +376,15 @@ public class Main {
         for (Trecho trecho : trechos) {
             if (trecho.getIdTrecho() == idTrecho) {
                 return trecho;
+            }
+        }
+        return null;
+    }
+
+    public static Cliente procurarCliente(int idCliente) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdCliente() == idCliente) {
+                return cliente;
             }
         }
         return null;

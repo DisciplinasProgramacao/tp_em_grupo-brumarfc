@@ -31,5 +31,10 @@ public class Cliente implements Serializable {
     public int getIdCliente() {
         return idCliente;
     }
+
+    public String relatorio(){
+        String desc = "ID do Cliente: " + this.idCliente + "\nNome: " + this.nome + "\nCPF: " + this.cpf + "\nAniversário: " + this.aniversario + "\nViagens: " + viagens.toString();
+        return desc;
+    }
 }
 
