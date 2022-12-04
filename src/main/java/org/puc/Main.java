@@ -218,7 +218,7 @@ public class Main {
                             }
                         }
                         if (clienteCompra == null) {
-                            System.out.println("Cliente não encontrado, informe um codigo de cli0ente existente");
+                            System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
                         }
                     }
 
