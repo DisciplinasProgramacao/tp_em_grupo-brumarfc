@@ -47,10 +47,6 @@ public class Voo implements Serializable{
     public int getIdVoo() {
         return idVoo;
     }
-
-    public Voo findVoo(LinkedList<Voo> voos){
-        voos.stream().filter(Voo::getIdVoo == )fin
-    }
     public String toString(){
         return "\nData: " + this.data + "\nTrechos: " + this.trechos.toString() + "\n Preço trecho: R$" + this.precoBase + "\n _________________________________________";
     }
