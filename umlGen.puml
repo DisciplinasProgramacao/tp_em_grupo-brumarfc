@@ -1,5 +1,5 @@
 @startuml
-class Main {
+class org.puc.Main {
 ~ {static} LinkedList<Cliente> clientes
 ~ {static} LinkedList<Trecho> trechos
 ~ {static} LinkedList<Voo> voos
@@ -24,8 +24,9 @@ class Main {
 + {static} Voo cadastrarVoo(Scanner)
 + {static} Trecho recuperarTrechos(int)
 + {static} Cliente procurarCliente(int)
++ {static} Voo procurarVoo(int)
 }
-class BilheteSimples {
+class org.puc.core.bilhete.BilheteSimples {
 # int idBilhete
 # int qtdeVoo
 # int pontosFidelidade
@@ -35,12 +36,12 @@ class BilheteSimples {
 + BigDecimal calcularPreco()
 + BigDecimal calcularPontos(Bilhete)
 }
-class RelatorioVoo {
+class org.puc.core.relatorios.RelatorioVoo {
 + String relatorioDeVoosUmaCidadeCemVoos(LinkedList<Voo>,Date,String)
 + String relatorioValorArrecadado(int,LinkedList<Bilhete>)
 + String clienteComMaisPontos(LinkedList<Cliente>)
 }
-class BilheteFidelidade {
+class org.puc.core.bilhete.BilheteFidelidade {
 # int idBilhete
 # int qtdeVoo
 # int pontosFidelidade
@@ -50,7 +51,7 @@ class BilheteFidelidade {
 + BigDecimal calcularPreco()
 + BigDecimal calcularPontos(Bilhete)
 }
-class TicketBooster {
+class org.puc.core.boost.TicketBooster {
 - String boostName
 - BigDecimal cost
 - BigDecimal boost
@@ -58,14 +59,14 @@ class TicketBooster {
 + BigDecimal getCost()
 + BigDecimal getBoost()
 }
-enum Type {
+enum org.puc.core.boost.Type {
 +  BLACK
 +  SILVER
 + String longName
 + BigDecimal boost
 + BigDecimal cost
 }
-class Trecho {
+class org.puc.core.voo.Trecho {
 - int idTrecho
 - {static} int incrementoTrecho
 - String destino
@@ -76,7 +77,7 @@ class Trecho {
 + String getDestino()
 + String toString()
 }
-class Cliente {
+class org.puc.core.cia.Cliente {
 - int idCliente
 - BigDecimal qtdePontos
 - String nome
@@ -88,7 +89,7 @@ class Cliente {
 + BigDecimal getQtdePontos()
 + String relatorio()
 }
-class BilhetePromocional {
+class org.puc.core.bilhete.BilhetePromocional {
 # int idBilhete
 # int qtdeVoo
 # int pontosFidelidade
@@ -98,7 +99,7 @@ class BilhetePromocional {
 + BigDecimal calcularPreco()
 + BigDecimal calcularPontos(Bilhete)
 }
-abstract class Bilhete {
+abstract class org.puc.core.bilhete.Bilhete {
 - Cliente cliente
 # int idBilhete
 # int qtdeVoo
@@ -127,7 +128,7 @@ abstract class Bilhete {
 + BigDecimal getPreco()
 + void setPreco(BigDecimal)
 }
-class Voo {
+class org.puc.core.voo.Voo {
 - int idVoo
 - {static} int incrementoVoo
 - LinkedList<Trecho> trechos
@@ -139,9 +140,10 @@ class Voo {
 + ArrayList<Bilhete> getPassagens()
 + LinkedList<Trecho> getTrechos()
 + String getData()
++ int getIdVoo()
 + String toString()
 }
-class CiaAerea {
+class org.puc.core.cia.CiaAerea {
 - int idCia
 - List<Trecho> trechos
 + Trecho registrarTrecho(Trecho)
@@ -149,14 +151,14 @@ class CiaAerea {
 }
 
 
-Serializable <|.. BilheteSimples
-Bilhete <|-- BilheteSimples
-Serializable <|.. BilheteFidelidade
-Bilhete <|-- BilheteFidelidade
-Serializable <|.. Trecho
-Serializable <|.. Cliente
-Serializable <|.. BilhetePromocional
-Bilhete <|-- BilhetePromocional
-Serializable <|.. Bilhete
-Serializable <|.. Voo
+java.io.Serializable <|.. org.puc.core.bilhete.BilheteSimples
+org.puc.core.bilhete.Bilhete <|-- org.puc.core.bilhete.BilheteSimples
+java.io.Serializable <|.. org.puc.core.bilhete.BilheteFidelidade
+org.puc.core.bilhete.Bilhete <|-- org.puc.core.bilhete.BilheteFidelidade
+java.io.Serializable <|.. org.puc.core.voo.Trecho
+java.io.Serializable <|.. org.puc.core.cia.Cliente
+java.io.Serializable <|.. org.puc.core.bilhete.BilhetePromocional
+org.puc.core.bilhete.Bilhete <|-- org.puc.core.bilhete.BilhetePromocional
+java.io.Serializable <|.. org.puc.core.bilhete.Bilhete
+java.io.Serializable <|.. org.puc.core.voo.Voo
 @enduml

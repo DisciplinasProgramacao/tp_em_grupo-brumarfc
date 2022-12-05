@@ -365,6 +365,7 @@ public class Main {
     }
 
     private static void submenu() {
+
         Scanner sc = new Scanner(System.in);
         System.out.println("------------------------------------------------------");
         System.out.println("BrumarFC Airlines - Relatorios");
