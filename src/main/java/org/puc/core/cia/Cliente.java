@@ -18,7 +18,6 @@ public class Cliente implements Serializable {
     private String cpf;
     private Date aniversario;
     private LinkedList<Bilhete> viagens;
-
     // #endregion
 
     // #region Construtor
