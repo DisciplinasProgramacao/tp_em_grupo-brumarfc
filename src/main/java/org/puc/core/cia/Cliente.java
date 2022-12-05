@@ -17,7 +17,6 @@ public class Cliente implements Serializable {
     private String cpf;
     private String aniversario;
     private LinkedList<Bilhete> viagens;
-
     // #endregion
 
     // #region Construtor
