@@ -12,6 +12,7 @@ import java.util.List;
 public abstract class Bilhete implements Serializable{
     private Cliente cliente;
     protected int idBilhete;
+    protected int pontosFidelidade;
     protected int qtdeVoo;
     protected BigDecimal precoBilheteEmPts;
     protected BigDecimal preco;
@@ -59,7 +60,8 @@ public abstract class Bilhete implements Serializable{
 
     public String toString(){
         return "\nID do Bilhete: " + this.idBilhete + "\nVoos: " + this.voos.toString() + "\n Preço: R$" + this.preco + "\nPontos de Fidelidade: " + this.pontosFidelidade + "\nVencimento: " + this.vencimento + "\n _________________________________________";
-
+    }
+    
     public BigDecimal getPreco() {
         return this.preco;
     }

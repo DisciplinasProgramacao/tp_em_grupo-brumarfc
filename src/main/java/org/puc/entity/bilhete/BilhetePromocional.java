@@ -12,16 +12,33 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BilhetePromocional extends Bilhete implements Serializable{
+    
+    // #region atributos
+    // atributos
     protected int idBilhete;
     protected int qtdeVoo;
     protected int pontosFidelidade;
     protected Date vencimento;
     protected LinkedList<Voo> voo;
     private int idCliente;
+    // #endregion
 
+    // #region Construtor
+
+    /**
+     * Construtor simples: Cria um bilhete do tipo Promocional.
+     * @param dataVencimento data de vencimento do bilhete
+     * @param pontos Pontos que serão gerados
+     * @param preco Preço do bilhete
+     * @param voos Voos atrelados ao bilhete
+     * @param id Identificador do bilhete
+     */
     public BilhetePromocional(String dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
         super(dataVencimento, pontos, preco, voos, id);
     }
+    // #endregion
+
+    // #region Métodos de funcionamento
 
     /**
      * Calcula preco do bilhete promocional
@@ -72,4 +89,5 @@ public class BilhetePromocional extends Bilhete implements Serializable{
         this.pontosFidelidade = pontos.intValue();
         return pontos;
     }
+    // #endregion
 }
