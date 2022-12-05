@@ -57,11 +57,15 @@ public abstract class Bilhete implements Serializable{
         return this.idBilhete;
     }
 
+    public String toString(){
+        return "\nID do Bilhete: " + this.idBilhete + "\nVoos: " + this.voos.toString() + "\n Preço: R$" + this.preco + "\nPontos de Fidelidade: " + this.pontosFidelidade + "\nVencimento: " + this.vencimento + "\n _________________________________________";
+
     public BigDecimal getPreco() {
         return this.preco;
     }
 
     public BigDecimal getPrecoBilheteEmPts() {
         return this.precoBilheteEmPts;
+
     }
 }

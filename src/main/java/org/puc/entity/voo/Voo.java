@@ -30,5 +30,9 @@ public class Voo implements Serializable{
     public BigDecimal getPrecoBase() {
         return this.precoBase;
     }
+
+    public String toString(){
+        return "\nData: " + this.data + "\nTrechos: " + this.trechos.toString() + "\n Preço trecho: R$" + this.precoBase + "\n _________________________________________";
+    }
    
 }
