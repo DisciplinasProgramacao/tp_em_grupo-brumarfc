@@ -78,6 +78,10 @@ public class Cliente implements Serializable {
         return qtdePontos;
     }
 
+    public LinkedList<Bilhete> getViagens() {
+        return viagens;
+    }
+
     /**
      * Gera um relatório com os detalhes pertinentes ao cliente.
      * @return relatório formatado com as informações do cliente e suas viagens.

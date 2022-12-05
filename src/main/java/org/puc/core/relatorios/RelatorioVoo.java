@@ -8,18 +8,18 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.LinkedList;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class RelatorioVoo {
 
-    public String relatorioDeVoosUmaCidadeCemVoos(LinkedList<Voo> voos, Date data, String cidade){
+    public String relatorioDeVoosUmaCidadeCemVoos(LinkedList<Voo> voos, Date data, String cidade) {
         StringBuilder message = new StringBuilder();
 
         voos.stream()
-                .filter(v -> v.getPassagens().size() > 100 && v.getTrechos().stream().anyMatch(t -> t.getDestino().equalsIgnoreCase(cidade)))
+                .filter(v -> v.getPassagens().size() > 100
+                        && v.getTrechos().stream().anyMatch(t -> t.getDestino().equalsIgnoreCase(cidade)))
                 .filter(v -> {
                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                     Date date;
@@ -44,12 +44,12 @@ public class RelatorioVoo {
             calendar.set(Calendar.MONTH, date);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-
             Calendar calendar2 = calendar;
             calendar2.add(Calendar.MONTH, 1);
 
             return bilhetes.stream()
-                    .filter(b -> b.getDataVencimento().after(calendar.getTime()) && b.getDataVencimento().before(calendar2.getTime()))
+                    .filter(b -> b.getDataVencimento().after(calendar.getTime())
+                            && b.getDataVencimento().before(calendar2.getTime()))
                     .map(Bilhete::getPreco)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .toPlainString();
@@ -63,5 +63,18 @@ public class RelatorioVoo {
 
     public String clienteComMaisPontos(LinkedList<Cliente> clientes) {
         return clientes.stream().max(Comparator.comparing(Cliente::getQtdePontos)).toString();
+    }
+
+    public List<Bilhete> bilhetesUltimoAno(Cliente cliente) {
+        
+        Calendar hoje =  Calendar.getInstance();
+        Calendar umAno = hoje;
+        umAno.add(Calendar.YEAR, -1);
+
+        return cliente.getViagens()
+                .stream()
+                .filter(c -> c.getDataVencimento().after(hoje.getTime()) && c.getDataVencimento().before(umAno.getTime()))
+                .collect(Collectors.toList());
+        
     }
 }
