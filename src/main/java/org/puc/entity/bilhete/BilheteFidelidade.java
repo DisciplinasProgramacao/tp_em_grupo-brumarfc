@@ -13,7 +13,7 @@ public class BilheteFidelidade extends Bilhete implements Serializable{
     protected int idBilhete;
     protected int qtdeVoo;
     protected int pontosFidelidade;
-    protected Date vencimento;
+    protected String vencimento;
     protected LinkedList<Voo> voo;
     private int idCliente;
 

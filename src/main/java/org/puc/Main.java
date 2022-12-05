@@ -12,8 +12,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.stream.Collector;
@@ -178,6 +181,7 @@ public class Main {
         System.out.println("3 - Cadastrar voo");
         System.out.println("4 - Comprar bilhetes");
         System.out.println("5 - Relatório Cliente");
+        System.out.println("6 - Teste");
         System.out.println("99 - Popular class");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -273,6 +277,17 @@ public class Main {
                         System.out.println(procurado.relatorio());                  
                     }
                     break;
+                case 6:
+                    System.out.println("Informe o código do cliente:");
+                    int idC = sc.nextInt();
+                    Cliente clienteT = procurarCliente(idC);
+                    if(clienteT == null){
+                        System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+                    }else {
+                        bilhetesUltimoAno(clienteT) ;   
+                    }
+                break;
+
                 case 99:
                     clientes.add(new Cliente("lucas", "123456", "20309", clientes.size()));
                     clientes.add(new Cliente("laura", "123457", "24343", clientes.size()));
@@ -407,13 +422,13 @@ public class Main {
     }
 
     public static LinkedList<Bilhete> bilhetesUltimoAno(Cliente clienteT) {
-        LocalDate data = LocalDate.now();
-        
-        //String  = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+        Date data = new Date();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+       
 
-       // LinkedList<Bilhete> teste = clienteT.getViagens().stream().filter(v -> v.getDataVencimento());
+       LinkedList<Bilhete> teste = clienteT.getViagens().stream().filter(v -> Duration.between(data, formato.parse(v.getDataVencimento())).toDays() <= 365  );
         
-       // LinkedList<Bilhete> teste = clienteT.getViagens().stream().filter(v -> v.formatter.parse(getDataVencimento()).isBefore(data.minusYears(1)));
+     //  LinkedList<Bilhete> teste = clienteT.getViagens().stream().filter(v -> v.getDataVencimento().isBefore(data.minusYears(1)));
 
         return teste;
      
