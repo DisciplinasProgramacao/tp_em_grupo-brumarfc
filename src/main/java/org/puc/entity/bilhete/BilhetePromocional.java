@@ -3,6 +3,7 @@ package org.puc.entity.bilhete;
 import org.puc.entity.cia.Cliente;
 import org.puc.entity.voo.Voo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
@@ -10,17 +11,16 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BilhetePromocional extends Bilhete {
+public class BilhetePromocional extends Bilhete implements Serializable{
     protected int idBilhete;
     protected int qtdeVoo;
     protected int pontosFidelidade;
-    protected BigDecimal preco;
     protected Date vencimento;
     protected LinkedList<Voo> voo;
     private int idCliente;
 
-    public BilhetePromocional(String dataVencimento, Cliente cliente, int pontos, BigDecimal preco, LinkedList<Voo> voos) {
-        super(dataVencimento, cliente, pontos, preco, voos);
+    public BilhetePromocional(String dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
+        super(dataVencimento, pontos, preco, voos, id);
     }
 
     /**
@@ -63,7 +63,7 @@ public class BilhetePromocional extends Bilhete {
     public BigDecimal calcularPontos(Bilhete viagens) {
         BigDecimal pontos;
 
-        int i = preco.divide(BigDecimal.valueOf(500), 2, RoundingMode.DOWN).intValue();
+        int i = preco.divide(viagens.getPrecoBilheteEmPts(), 500, RoundingMode.DOWN).intValue();
 
         pontos = BigDecimal.valueOf(i).multiply(BigDecimal.valueOf(500));
 

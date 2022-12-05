@@ -2,12 +2,13 @@ package org.puc.entity.voo;
 
 import org.puc.entity.bilhete.Bilhete;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Voo {
+public class Voo implements Serializable{
     private int idVoo;
     private static int incrementoVoo = 0;
     private LinkedList<Trecho> trechos;
@@ -28,6 +29,10 @@ public class Voo {
 
     public BigDecimal getPrecoBase() {
         return this.precoBase;
+    }
+
+    public String toString(){
+        return "\nData: " + this.data + "\nTrechos: " + this.trechos.toString() + "\n Preço trecho: R$" + this.precoBase + "\n _________________________________________";
     }
    
 }

@@ -1,9 +1,10 @@
 package org.puc.entity.voo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trecho {
+public class Trecho implements Serializable{
     private int idTrecho;
     private static int incrementoTrecho = 0;
     private String destino;
@@ -22,5 +23,9 @@ public class Trecho {
 
     public int getIdTrecho() {
         return this.idTrecho;
+    }
+
+    public String toString(){
+        return "\n Origem: " + this.origem + "\n Destino: " + this.destino;
     }
 }
