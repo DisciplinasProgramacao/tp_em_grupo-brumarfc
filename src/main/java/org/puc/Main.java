@@ -361,7 +361,7 @@ public class Main {
         }
 
         try {
-            BigDecimal valorCompra = clienteCompra.comprarBilhete(bilheteCompra);
+            BigDecimal valorCompra = clienteCompra.comprarBilhete(bilheteCompra, useBoost);
             System.out.println("O valor total da compra é: R$ " + valorCompra.toString());
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
