@@ -1,9 +1,9 @@
 package org.puc;
 
-import org.puc.entity.bilhete.Bilhete;
-import org.puc.entity.bilhete.BilheteFidelidade;
-import org.puc.entity.bilhete.BilhetePromocional;
-import org.puc.entity.bilhete.BilheteSimples;
+import org.puc.core.bilhete.Bilhete;
+import org.puc.core.bilhete.BilheteFidelidade;
+import org.puc.core.bilhete.BilhetePromocional;
+import org.puc.core.bilhete.BilheteSimples;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,15 +12,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.stream.Collector;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-import org.puc.entity.bilhete.Bilhete;
-import org.puc.entity.cia.Cliente;
-import org.puc.entity.voo.Trecho;
-import org.puc.entity.voo.Voo;
+import org.puc.core.boost.Type;
+import org.puc.core.cia.Cliente;
+import org.puc.core.relatorios.RelatorioVoo;
+import org.puc.core.voo.Trecho;
+import org.puc.core.voo.Voo;
 
 public class Main {
     static LinkedList<Cliente> clientes = new LinkedList<Cliente>();
@@ -177,6 +178,7 @@ public class Main {
         System.out.println("3 - Cadastrar voo");
         System.out.println("4 - Comprar bilhetes");
         System.out.println("5 - Relatório Cliente");
+        System.out.println("6 - Relatorios");
         System.out.println("99 - Popular class");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -252,25 +254,54 @@ public class Main {
                         // Transformar o bilhete em um bilhete fidelidade para não contabilizar os pts;
                         bilheteCompra = new BilheteFidelidade(bilheteCompra.getDataVencimento(), bilheteCompra.getPrecoBilheteEmPts(), bilheteCompra.getPreco(), bilheteCompra.getVoos(), bilheteCompra.getId());
                     }
-                    try
-                    {
+
+                    System.out.println("Deseja incluir um acelerador de pontos? (s/n)");
+                    String useBoost = sc.next();
+
+                    if (useBoost.equalsIgnoreCase("s")) {
+                        boolean success = false;
+
+                        System.out.println("Temos os seguintes aceleradores: ");
+
+                        Arrays.stream(Type.values()).forEach(b -> {
+                            System.out.println("----------------------------");
+                            System.out.println("Codigo - " + b.name() + " ,informacoes:");
+                            System.out.println(b.longName + " que multiplica os pontos em " + b.boost + " e custa " + b.cost);
+                        });
+                        System.out.println("Escolha o seu! (digite o codigo do acelerador)");
+                        String opcBoost = sc.next();
+                        while (!success) {
+                            try {
+                                Type type = Type.valueOf(opcBoost.toUpperCase());
+                                bilheteCompra.giveBooster(type);
+                                success = true;
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Houve um problema ao digitar o código, tente novamente");
+                            }
+                        }
+                    }
+
+                    try {
                         BigDecimal valorCompra = clienteCompra.comprarBilhete(bilheteCompra);
                         System.out.println("O valor total da compra é: R$ " + valorCompra.toString());
-                    }catch(Exception exception )
-                    {
+                    } catch (Exception exception) {
                         System.out.println(exception.getMessage());
                     }
-                    
+
                     break;
                 case 5:
                     System.out.println("Informe o código do cliente:");
                     int idCliente = sc.nextInt();
                     Cliente procurado = procurarCliente(idCliente);
-                    if(procurado == null){
+                    if (procurado == null) {
                         System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
-                    }else {
-                        System.out.println(procurado.relatorio());                  
+                    } else {
+                        System.out.println(procurado.relatorio());
                     }
+                    break;
+
+                case 6:
+                    submenu();
                     break;
                 case 99:
                     clientes.add(new Cliente("lucas", "123456", "20309", clientes.size()));
@@ -334,7 +365,7 @@ public class Main {
                             voosBilhete2, bilhetes.size());
                     bilhetes.add(bilheteProm2);
 
-                    Bilhete bilheteFidel2 = new BilheteFidelidade(/*"23/02/2025"*/ new Date(),new BigDecimal(280), new BigDecimal(280.00),
+                    Bilhete bilheteFidel2 = new BilheteFidelidade(/*"23/02/2025"*/ new Date(), new BigDecimal(280), new BigDecimal(280.00),
                             voosBilhete2, bilhetes.size());
                     bilhetes.add(bilheteFidel2);
             }
@@ -343,6 +374,53 @@ public class Main {
         gravarDadosClientes(clientes);
         gravarDadosTrechos(trechos);
         gravarDadosVoos(voos);
+    }
+
+    private static void submenu() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("------------------------------------------------------");
+        System.out.println("BrumarFC Airlines - Relatorios");
+        System.out.println("1 - Relatorio de voos para uma cidade, numa data, com mais de 100 reservas");
+        System.out.println("2 - Relatorio de faturament");
+//        System.out.println("3 - Cadastrar voo");
+//        System.out.println("4 - Comprar bilhetes");
+//        System.out.println("5 - Relatório Cliente");
+//        System.out.println("6 - Relatorios");
+        System.out.println("0 - Sair");
+        System.out.println("------------------------------------------------------");
+
+        int opcao = sc.nextInt();
+        sc.nextLine();
+        RelatorioVoo relatorioVoo = new RelatorioVoo();
+        DateFormat df = new SimpleDateFormat();
+
+        switch (opcao){
+            case 1:
+                System.out.println("Cidade: ");
+                String city = sc.next();
+                System.out.println("Data:");
+                String dateString = sc.next();
+                Date date;
+                try {
+                    date = df.parse(dateString);
+                } catch (ParseException e) {
+                    date = new Date();
+                }
+                System.out.println(relatorioVoo.relatorioDeVoosUmaCidadeCemVoos(voos, date, city));
+                break;
+
+            case 2:
+                System.out.println("Insira o numero do mes, ou -1 para calcular todas as datas");
+                int month = sc.nextInt();
+                Calendar calendar = null;
+                if (month != -1) {
+                    calendar = Calendar.getInstance();
+                    calendar.set(Calendar.MONTH, month);
+                    calendar.set(Calendar.DAY_OF_MONTH, 1);
+                }
+                System.out.println(relatorioVoo.relatorioValorArrecadado(calendar == null ? null : calendar.getTime(), bilhetes));
+                break;
+        }
     }
 
     // Métodos Switches

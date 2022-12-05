@@ -1,9 +1,8 @@
-package org.puc.entity.cia;
+package org.puc.core.cia;
 
 
-import org.puc.entity.voo.Trecho;
+import org.puc.core.voo.Trecho;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CiaAerea {

@@ -1,6 +1,6 @@
-package org.puc.entity.voo;
+package org.puc.core.voo;
 
-import org.puc.entity.bilhete.Bilhete;
+import org.puc.core.bilhete.Bilhete;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,13 +21,24 @@ public class Voo implements Serializable{
         trechos = new LinkedList<Trecho>();
     }
 
-
     public void addTrecho(Trecho trecho) {
         this.trechos.add(trecho);
     }
 
     public BigDecimal getPrecoBase() {
         return this.precoBase;
+    }
+
+    public ArrayList<Bilhete> getPassagens() {
+        return passagens;
+    }
+
+    public LinkedList<Trecho> getTrechos() {
+        return trechos;
+    }
+
+    public String getData() {
+        return data;
     }
 
     public String toString(){

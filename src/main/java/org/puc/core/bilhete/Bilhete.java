@@ -1,7 +1,9 @@
-package org.puc.entity.bilhete;
+package org.puc.core.bilhete;
 
-import org.puc.entity.voo.Voo;
-import org.puc.entity.cia.Cliente;
+import org.puc.core.boost.TicketBooster;
+import org.puc.core.boost.Type;
+import org.puc.core.voo.Voo;
+import org.puc.core.cia.Cliente;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,6 +19,7 @@ public abstract class Bilhete implements Serializable {
     protected Date vencimento;
     protected LinkedList<Voo> voos;
     protected int pontosFidelidade;
+    protected TicketBooster ticketBooster;
 
     public Bilhete(Date dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
         this.vencimento = dataVencimento;
@@ -36,6 +39,18 @@ public abstract class Bilhete implements Serializable {
         this.preco = preco;
         this.voos = voos;
         this.pontosFidelidade = pontosFidelidade;
+    }
+
+    public void giveBooster(Type type){
+        ticketBooster = new TicketBooster(type);
+    }
+
+    public BigDecimal getPrecoAcelerador(){
+        return ticketBooster.getCost();
+    }
+
+    public BigDecimal getAcelerador(){
+        return ticketBooster.getBoost();
     }
 
     public Date getDataVencimento() {

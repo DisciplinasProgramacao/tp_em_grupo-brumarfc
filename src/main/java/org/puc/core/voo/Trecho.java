@@ -1,7 +1,6 @@
-package org.puc.entity.voo;
+package org.puc.core.voo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Trecho implements Serializable{
@@ -23,6 +22,10 @@ public class Trecho implements Serializable{
 
     public int getIdTrecho() {
         return this.idTrecho;
+    }
+
+    public String getDestino() {
+        return destino;
     }
 
     public String toString(){

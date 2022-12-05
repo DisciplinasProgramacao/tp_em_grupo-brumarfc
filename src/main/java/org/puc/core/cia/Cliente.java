@@ -1,12 +1,10 @@
-package org.puc.entity.cia;
+package org.puc.core.cia;
 
-import org.puc.entity.bilhete.Bilhete;
-import org.puc.entity.bilhete.BilheteFidelidade;
-import org.puc.entity.bilhete.BilhetePromocional;
+import org.puc.core.bilhete.Bilhete;
+import org.puc.core.bilhete.BilheteFidelidade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Cliente implements Serializable {
@@ -36,8 +34,8 @@ public class Cliente implements Serializable {
             this.qtdePontos = this.qtdePontos.subtract(this.qtdePontos);
         }
         else {
-            this.qtdePontos = this.qtdePontos.add(bilhete.calcularPontos(bilhete));
-            preco = bilhete.getPreco();
+            this.qtdePontos = this.qtdePontos.add(bilhete.calcularPontos(bilhete).multiply(bilhete.getAcelerador()));
+            preco = bilhete.getPreco().add(bilhete.getPrecoAcelerador());
         }
         // Vincula o bilhete ao cliente e add o bilhete na sua lista de viagens
         viagens.add(bilhete);

@@ -1,6 +1,6 @@
-package org.puc.entity.bilhete;
+package org.puc.core.bilhete;
 
-import org.puc.entity.voo.Voo;
+import org.puc.core.voo.Voo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
