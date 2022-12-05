@@ -22,13 +22,7 @@ public class RelatorioVoo {
                         && v.getTrechos().stream().anyMatch(t -> t.getDestino().equalsIgnoreCase(cidade)))
                 .filter(v -> {
                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date;
-                    try {
-                        date = df.parse(v.getData());
-                    } catch (ParseException e) {
-                        date = new Date();
-                    }
-
+                    Date date = v.getData();
                     return date.compareTo(data) >= 0;
                 }).forEach(t -> {
                     message.append(t.toString()).append("/n");
@@ -68,7 +62,7 @@ public class RelatorioVoo {
         try{
             return clientes
                     .stream()
-//                    .filter(c -> c.getViagens().stream().anyMatch(b -> b.getDataVencimento().before(calendar.getTime()) && b.getDataVencimento().after(c2.getTime())))
+                    .filter(c -> c.getViagens().stream().anyMatch(b -> b.getDataVencimento().before(calendar.getTime()) && b.getDataVencimento().after(c2.getTime())))
                     .max(Comparator.comparing(Cliente::getQtdePontos))
                     .orElseThrow()
                     .relatorio();
