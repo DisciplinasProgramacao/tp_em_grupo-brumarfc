@@ -374,7 +374,7 @@ public class Main {
         System.out.println("3 - Cliente com mais pontos acumulados");
         System.out.println("4 - Relatório Cliente");
         System.out.println("5 - Procurar Voo");
-//        System.out.println("6 - Relatorios");
+        System.out.println("6 - Teste");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
 
@@ -426,6 +426,17 @@ public class Main {
                 } catch (NoSuchElementException e){
                     System.out.println("Voo não encontrado");
                 }
+                break;
+            case 6: 
+                System.out.println("Informe o código do cliente:");
+                int idClient = sc.nextInt();
+                Cliente procurad = procurarCliente(idClient);
+                if (procurad == null) {
+                    System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+                } else {
+                    System.out.println(relatorioVoo.bilhetesUltimoAno(procurad));
+                }
+                break;
         }
     }
 
