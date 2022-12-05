@@ -4,9 +4,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class TicketBooster implements Serializable {
+
+
+    // #region atributos
+    // atributos
     private String boostName;
     private BigDecimal cost;
     private BigDecimal boost;
+    //#endregion
 
     public TicketBooster(Type typeBooster) {
         this.boostName = typeBooster.longName;
@@ -14,9 +19,10 @@ public class TicketBooster implements Serializable {
         this.boost = typeBooster.boost;
     }
 
-    public TicketBooster( ) {
+    public TicketBooster() {
     }
 
+    //#region getters
     public String getBoostName() {
         return boostName;
     }
@@ -28,4 +34,5 @@ public class TicketBooster implements Serializable {
     public BigDecimal getBoost() {
         return boost;
     }
+    //#endregion
 }

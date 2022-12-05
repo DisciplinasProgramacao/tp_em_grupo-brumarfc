@@ -13,10 +13,14 @@ public enum Type {
      */
     SILVER("Prata", BigDecimal.valueOf(1.25), BigDecimal.valueOf(30));
 
+    // #region atributos
+    // atributos
     public final String longName;
     public final BigDecimal boost;
     public final BigDecimal cost;
+    //#endregion
 
+    // #region Métodos de funcionamento
     /**
      * @param longName  nome do booster
      * @param boost valor do boost
@@ -27,4 +31,5 @@ public enum Type {
         this.boost = boost;
         this.cost = cost;
     }
+    //#endregion
 }

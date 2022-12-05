@@ -14,7 +14,15 @@ import java.util.stream.Collectors;
 
 public class RelatorioVoo {
 
-    public String relatorioDeVoosUmaCidadeCemVoos(LinkedList<Voo> voos, Date data, String cidade) {
+    //#region Métodos de funcionamento
+    /**
+     * Relatório de voos para uma cidade, em uma data, com mais de 100 reservas
+     * @param voos Lista de Voos
+     * @param data Data 
+     * @param cidade Cidade dos voos
+     * @return Relatório
+     */
+    public String relatorioDeVoosUmaCidadeCemVoos(LinkedList<Voo> voos, Date data, String cidade){
         StringBuilder message = new StringBuilder();
 
         voos.stream()
@@ -31,6 +39,13 @@ public class RelatorioVoo {
         return message.toString();
     }
 
+
+    /**
+    * Relatório de valores arrecadados com bilhetes pela empresa por mês escolhido ou desde o início de funcionamento da empresa
+    * @param date Mês a ser verificado
+    * @param bilhetes Lista de bilhetes
+    * @return Valor arrecadado
+    */
     public String relatorioValorArrecadado(int date, LinkedList<Bilhete> bilhetes) {
 
         if (date != -1) {
@@ -55,6 +70,11 @@ public class RelatorioVoo {
                 .toPlainString();
     }
 
+    /**
+     * Filtra e encontra o cliente com mais pontos
+     * @param clientes Lista de clientes
+     * @return Cliente com mais pontos
+     */
     public String clienteComMaisPontos(LinkedList<Cliente> clientes) {
         Calendar calendar = Calendar.getInstance();
         Calendar c2 = calendar;
