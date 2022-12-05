@@ -15,13 +15,13 @@ public class BilheteSimples extends Bilhete implements Serializable{
     protected int idBilhete;
     protected int qtdeVoo;
     protected int pontosFidelidade;
-    protected BigDecimal preco;
     protected Date vencimento;
     protected LinkedList<Voo> voo;
     private int idCliente;
 
-    public BilheteSimples(String dataVencimento, int pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
+    public BilheteSimples(String dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
         super(dataVencimento, pontos, preco, voos, id);
+
     }
 
     /**
@@ -62,7 +62,7 @@ public class BilheteSimples extends Bilhete implements Serializable{
     public BigDecimal calcularPontos(Bilhete viagem) {
         BigDecimal pontos;
 
-        int i = preco.divide(BigDecimal.valueOf(500), 2, RoundingMode.DOWN).intValue();
+        int i = preco.divide(viagem.getPrecoBilheteEmPts(), 500, RoundingMode.DOWN).intValue();
 
         pontos = BigDecimal.valueOf(i).multiply(BigDecimal.valueOf(500));
 

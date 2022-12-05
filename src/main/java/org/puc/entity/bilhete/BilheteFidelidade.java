@@ -13,12 +13,11 @@ public class BilheteFidelidade extends Bilhete implements Serializable{
     protected int idBilhete;
     protected int qtdeVoo;
     protected int pontosFidelidade;
-    protected BigDecimal preco;
     protected Date vencimento;
     protected LinkedList<Voo> voo;
     private int idCliente;
 
-    public BilheteFidelidade(String dataVencimento, int pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
+    public BilheteFidelidade(String dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
         super(dataVencimento, pontos, preco, voos, id);
     }
 
