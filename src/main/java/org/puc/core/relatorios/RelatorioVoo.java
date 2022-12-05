@@ -62,7 +62,19 @@ public class RelatorioVoo {
     }
 
     public String clienteComMaisPontos(LinkedList<Cliente> clientes) {
-        return clientes.stream().max(Comparator.comparing(Cliente::getQtdePontos)).toString();
+        Calendar calendar = Calendar.getInstance();
+        Calendar c2 = calendar;
+        c2.add(Calendar.YEAR, -1);
+        try{
+            return clientes
+                    .stream()
+//                    .filter(c -> c.getViagens().stream().anyMatch(b -> b.getDataVencimento().before(calendar.getTime()) && b.getDataVencimento().after(c2.getTime())))
+                    .max(Comparator.comparing(Cliente::getQtdePontos))
+                    .orElseThrow()
+                    .relatorio();
+        }catch (NoSuchElementException e){
+            return "cliente não encontrado";
+        }
     }
 
     public List<Bilhete> bilhetesUltimoAno(Cliente cliente) {

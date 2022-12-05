@@ -189,11 +189,16 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        clientes = carregarDadosClientes(sc);
-        trechos = carregarDadosTrechos(sc);
-        voos = carregarDadosVoos(sc);
-        bilhetes = carregarDadosBilhetes(sc);
-
+        if (clientes == null || trechos == null || voos == null || bilhetes==null ||
+                clientes.isEmpty() || trechos.isEmpty() || voos.isEmpty() || bilhetes.isEmpty()){
+            popularDados();
+        }
+        else {
+            clientes = carregarDadosClientes(sc);
+            trechos = carregarDadosTrechos(sc);
+            voos = carregarDadosVoos(sc);
+            bilhetes = carregarDadosBilhetes(sc);
+        }
         int opcao;
         do {
             opcao = menu(sc);
@@ -217,77 +222,81 @@ public class Main {
                     submenu();
                     break;
                 case 99:
-                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size()));
-                    clientes.add(new Cliente("laura", "123457", df.parse("13/07/1958"), clientes.size()));
-                    clientes.add(new Cliente("monica", "123458", df.parse("01/09/1997"), clientes.size()));
-                    clientes.add(new Cliente("joão", "123459", df.parse("25/12/1986"), clientes.size()));
-                    clientes.add(new Cliente("maria", "123461", df.parse("10/10/2001"), clientes.size()));
-                    clientes.add(new Cliente("moana", "123471", df.parse("01/07/1988"), clientes.size()));
 
-                    trechos.add(new Trecho("belo horizonte", "maldivas"));
-                    trechos.add(new Trecho("sao paulo", "santa catarina"));
-                    trechos.add(new Trecho("dublin", "roraima"));
-                    trechos.add(new Trecho("fortaleza", "nova iorque"));
-                    trechos.add(new Trecho("natal", "rio de janeiro"));
-
-                    Voo voo = new Voo("1221");
-                    voo.addTrecho(recuperarTrechos(1));
-                    voos.add(voo);
-
-                    voo = new Voo("1222");
-                    voo.addTrecho(recuperarTrechos(2));
-                    voos.add(voo);
-
-                    voo = new Voo("1223");
-                    voo.addTrecho(recuperarTrechos(3));
-                    voos.add(voo);
-
-                    voo = new Voo("1224");
-                    voo.addTrecho(recuperarTrechos(4));
-                    voos.add(voo);
-
-                    voo = new Voo("1225");
-                    voo.addTrecho(recuperarTrechos(5));
-                    voos.add(voo);
-
-                    LinkedList<Voo> voosBilhete = new LinkedList<Voo>();
-                    voosBilhete.add(voos.get(1));
-                    voosBilhete.add(voos.get(3));
-
-                    Bilhete bilheteProm = new BilhetePromocional(/*"24/04/2022"*/ new Date(), new BigDecimal(500), new BigDecimal(500.50), voosBilhete,
-                            bilhetes.size());
-                    bilhetes.add(bilheteProm);
-
-                    Bilhete bilheteFidel = new BilhetePromocional(/*"23/05/2025"*/ new Date(), new BigDecimal(280), new BigDecimal(280.00), voosBilhete,
-                            bilhetes.size());
-                    bilhetes.add(bilheteFidel);
-
-                    Bilhete bilheteSimples = new BilheteSimples(/*"20/03/2030"*/ new Date(), new BigDecimal(780), new BigDecimal(780.88), voosBilhete,
-                            bilhetes.size());
-                    bilhetes.add(bilheteSimples);
-
-                    LinkedList<Voo> voosBilhete2 = new LinkedList<Voo>();
-                    voosBilhete2.add(voos.get(0));
-                    voosBilhete2.add(voos.get(2));
-
-                    Bilhete bilheteSimples2 = new BilheteSimples(/*"23/05/2022"*/ new Date(), new BigDecimal(120), new BigDecimal(120.88), voosBilhete2,
-                            bilhetes.size());
-                    bilhetes.add(bilheteSimples2);
-
-                    Bilhete bilheteProm2 = new BilhetePromocional(/*"24/09/2022"*/ new Date(), new BigDecimal(345), new BigDecimal(345.50),
-                            voosBilhete2, bilhetes.size());
-                    bilhetes.add(bilheteProm2);
-
-                    Bilhete bilheteFidel2 = new BilheteFidelidade(/*"23/02/2025"*/ new Date(), new BigDecimal(280), new BigDecimal(280.00),
-                            voosBilhete2, bilhetes.size());
-                    bilhetes.add(bilheteFidel2);
             }
         } while (opcao != 0);
         gravarDadosBilhetes(bilhetes);
         gravarDadosClientes(clientes);
         gravarDadosTrechos(trechos);
         gravarDadosVoos(voos);
+    }
+
+    private static void popularDados() throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size()));
+        clientes.add(new Cliente("laura", "123457", df.parse("13/07/1958"), clientes.size()));
+        clientes.add(new Cliente("monica", "123458", df.parse("01/09/1997"), clientes.size()));
+        clientes.add(new Cliente("joão", "123459", df.parse("25/12/1986"), clientes.size()));
+        clientes.add(new Cliente("maria", "123461", df.parse("10/10/2001"), clientes.size()));
+        clientes.add(new Cliente("moana", "123471", df.parse("01/07/1988"), clientes.size()));
+
+        trechos.add(new Trecho("belo horizonte", "maldivas"));
+        trechos.add(new Trecho("sao paulo", "santa catarina"));
+        trechos.add(new Trecho("dublin", "roraima"));
+        trechos.add(new Trecho("fortaleza", "nova iorque"));
+        trechos.add(new Trecho("natal", "rio de janeiro"));
+
+        Voo voo = new Voo(df.parse("20/06/2022"));
+        voo.addTrecho(recuperarTrechos(1));
+        voos.add(voo);
+
+        voo = new Voo(df.parse("20/07/2022"));
+        voo.addTrecho(recuperarTrechos(2));
+        voos.add(voo);
+
+        voo = new Voo(df.parse("30/06/2021"));
+        voo.addTrecho(recuperarTrechos(3));
+        voos.add(voo);
+
+        voo = new Voo(df.parse("23/12/2021"));
+        voo.addTrecho(recuperarTrechos(4));
+        voos.add(voo);
+
+        voo = new Voo(df.parse("26/01/2022"));
+        voo.addTrecho(recuperarTrechos(5));
+        voos.add(voo);
+
+        LinkedList<Voo> voosBilhete = new LinkedList<Voo>();
+        voosBilhete.add(voos.get(1));
+        voosBilhete.add(voos.get(3));
+
+        Bilhete bilheteProm = new BilhetePromocional(df.parse("24/04/2022"), new BigDecimal(500), new BigDecimal(500.50), voosBilhete,
+                bilhetes.size());
+        bilhetes.add(bilheteProm);
+
+        Bilhete bilheteFidel = new BilhetePromocional(df.parse("23/05/2025"), new BigDecimal(280), new BigDecimal(280.00), voosBilhete,
+                bilhetes.size());
+        bilhetes.add(bilheteFidel);
+
+        Bilhete bilheteSimples = new BilheteSimples(df.parse("20/03/2030"), new BigDecimal(780), new BigDecimal(780.88), voosBilhete,
+                bilhetes.size());
+        bilhetes.add(bilheteSimples);
+
+        LinkedList<Voo> voosBilhete2 = new LinkedList<Voo>();
+        voosBilhete2.add(voos.get(0));
+        voosBilhete2.add(voos.get(2));
+
+        Bilhete bilheteSimples2 = new BilheteSimples(df.parse("23/05/2022"), new BigDecimal(120), new BigDecimal(120.88), voosBilhete2,
+                bilhetes.size());
+        bilhetes.add(bilheteSimples2);
+
+        Bilhete bilheteProm2 = new BilhetePromocional(df.parse("24/09/2022"), new BigDecimal(345), new BigDecimal(345.50),
+                voosBilhete2, bilhetes.size());
+        bilhetes.add(bilheteProm2);
+
+        Bilhete bilheteFidel2 = new BilheteFidelidade(df.parse("23/02/2025") , new BigDecimal(280), new BigDecimal(280.00),
+                voosBilhete2, bilhetes.size());
+        bilhetes.add(bilheteFidel2);
     }
 
     public static void comprar(Scanner sc) {
@@ -475,9 +484,15 @@ public class Main {
 
     public static Voo cadastrarVoo(Scanner sc) {
         int opcao;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Informe a data do voo:");
         String data = sc.nextLine();
-        Voo voo = new Voo(data);
+        Voo voo;
+        try {
+            voo = new Voo(df.parse(data));
+        }catch (ParseException e){
+            voo = new Voo(new Date());
+        }
         do {
             opcao = menu(sc);
             System.out.println(" 1 - Vincular trechos:");

@@ -1,0 +1,168 @@
+@startuml
+class Main {
+~ {static} LinkedList<Cliente> clientes
+~ {static} LinkedList<Trecho> trechos
+~ {static} LinkedList<Voo> voos
+~ {static} LinkedList<Bilhete> bilhetes
+~ {static} String arqDadosClientes
+~ {static} String arqDadosTrechos
+~ {static} String arqDadosVoos
+~ {static} String arqDadosBilhetes
++ {static} void gravarDadosClientes(LinkedList<Cliente>)
++ {static} void gravarDadosTrechos(LinkedList<Trecho>)
++ {static} void gravarDadosVoos(LinkedList<Voo>)
++ {static} void gravarDadosBilhetes(LinkedList<Bilhete>)
++ {static} LinkedList<Cliente> carregarDadosClientes(Scanner)
++ {static} LinkedList<Trecho> carregarDadosTrechos(Scanner)
++ {static} LinkedList<Voo> carregarDadosVoos(Scanner)
++ {static} LinkedList<Bilhete> carregarDadosBilhetes(Scanner)
++ {static} int menu(Scanner)
++ {static} void main(String[])
++ {static} void comprar(Scanner)
+- {static} void submenu()
++ {static} Cliente cadastrarCliente(Scanner)
++ {static} Trecho cadastrarTrecho(Scanner)
++ {static} Voo cadastrarVoo(Scanner)
++ {static} Trecho recuperarTrechos(int)
++ {static} Cliente procurarCliente(int)
++ {static} Voo procurarVoo(int)
+}
+class BilheteSimples {
+# int idBilhete
+# int qtdeVoo
+# int pontosFidelidade
+# Date vencimento
+# LinkedList<Voo> voo
+- int idCliente
++ BigDecimal calcularPreco()
++ BigDecimal calcularPontos(Bilhete)
+}
+class RelatorioVoo {
++ String relatorioDeVoosUmaCidadeCemVoos(LinkedList<Voo>,Date,String)
++ String relatorioValorArrecadado(int,LinkedList<Bilhete>)
++ String clienteComMaisPontos(LinkedList<Cliente>)
++ List<Bilhete> bilhetesUltimoAno(Cliente)
+}
+class BilheteFidelidade {
+# int idBilhete
+# int qtdeVoo
+# int pontosFidelidade
+# Date vencimento
+# LinkedList<Voo> voo
+- int idCliente
++ BigDecimal calcularPreco()
++ BigDecimal calcularPontos(Bilhete)
+}
+class TicketBooster {
+- String boostName
+- BigDecimal cost
+- BigDecimal boost
++ String getBoostName()
++ BigDecimal getCost()
++ BigDecimal getBoost()
+}
+enum Type {
++  BLACK
++  SILVER
++ String longName
++ BigDecimal boost
++ BigDecimal cost
+}
+class Trecho {
+- int idTrecho
+- {static} int incrementoTrecho
+- String destino
+- String origem
+- List<String> voo
++ Voo gerarVoo(Voo)
++ int getIdTrecho()
++ String getDestino()
++ String toString()
+}
+class Cliente {
+- int idCliente
+- BigDecimal qtdePontos
+- String nome
+- String cpf
+- Date aniversario
+- LinkedList<Bilhete> viagens
++ BigDecimal comprarBilhete(Bilhete,String)
++ int getIdCliente()
++ BigDecimal getQtdePontos()
++ LinkedList<Bilhete> getViagens()
++ String relatorio()
+}
+class BilhetePromocional {
+# int idBilhete
+# int qtdeVoo
+# int pontosFidelidade
+# Date vencimento
+# LinkedList<Voo> voo
+- int idCliente
++ BigDecimal calcularPreco()
++ BigDecimal calcularPontos(Bilhete)
+}
+abstract class Bilhete {
+- Cliente cliente
+# int idBilhete
+# int qtdeVoo
+# BigDecimal precoBilheteEmPts
+# BigDecimal preco
+# Date vencimento
+# LinkedList<Voo> voos
+# int pontosFidelidade
+# TicketBooster ticketBooster
++ void giveBooster(Type)
++ BigDecimal getPrecoAcelerador()
++ BigDecimal getAcelerador()
++ Date getDataVencimento()
++ LinkedList<Voo> getVoos()
++ int getId()
++ void addVoo(Voo)
++ boolean disponivel()
++ int verificaVoos()
++ void vender(Cliente)
++ {abstract}BigDecimal calcularPreco()
++ {abstract}BigDecimal calcularPontos(Bilhete)
++ int getIdBilhete()
++ String toString()
++ BigDecimal getPrecoBilheteEmPts()
++ void setPrecoBilheteEmPts(BigDecimal)
++ BigDecimal getPreco()
++ void setPreco(BigDecimal)
+}
+class Voo {
+- int idVoo
+- {static} int incrementoVoo
+- LinkedList<Trecho> trechos
+- String data
+- ArrayList<Bilhete> passagens
+- BigDecimal precoBase
++ void addTrecho(Trecho)
++ BigDecimal getPrecoBase()
++ ArrayList<Bilhete> getPassagens()
++ LinkedList<Trecho> getTrechos()
++ String getData()
++ int getIdVoo()
++ String toString()
+}
+class CiaAerea {
+- int idCia
+- List<Trecho> trechos
++ Trecho registrarTrecho(Trecho)
++ void removerTrecho(int)
+}
+
+
+Serializable <|.. BilheteSimples
+Bilhete <|-- BilheteSimples
+Serializable <|.. BilheteFidelidade
+Bilhete <|-- BilheteFidelidade
+Serializable <|.. TicketBooster
+Serializable <|.. Trecho
+Serializable <|.. Cliente
+Serializable <|.. BilhetePromocional
+Bilhete <|-- BilhetePromocional
+Serializable <|.. Bilhete
+Serializable <|.. Voo
+@enduml

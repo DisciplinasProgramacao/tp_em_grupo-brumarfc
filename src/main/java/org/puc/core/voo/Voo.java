@@ -5,20 +5,21 @@ import org.puc.core.bilhete.Bilhete;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Voo implements Serializable{
     private int idVoo;
     private static int incrementoVoo = 0;
     private LinkedList<Trecho> trechos;
-    private String data;
+    private Date data;
     private ArrayList<Bilhete> passagens;
     private BigDecimal precoBase;
 
     public Voo() {
     }
 
-    public Voo(String data) {
+    public Voo(Date data) {
         this.data = data;
         this.idVoo = incrementoVoo ++;
         trechos = new LinkedList<Trecho>();
@@ -40,7 +41,7 @@ public class Voo implements Serializable{
         return trechos;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
