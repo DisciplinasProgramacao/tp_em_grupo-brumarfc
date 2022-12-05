@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -174,6 +176,7 @@ public class Main {
         System.out.println("2 - Cadastrar trecho");
         System.out.println("3 - Cadastrar voo");
         System.out.println("4 - Comprar bilhetes");
+        System.out.println("5 - teste");
         System.out.println("99 - Popular class");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -260,6 +263,13 @@ public class Main {
                     }
                     
                     break;
+                case 5:
+                    System.out.println("Informe o código do cliente:");
+                    int idCliente = sc.nextInt();
+
+                    Cliente clienteT = procurarCliente(idCliente);
+                    
+                   System.out.print(bilhetesUltimoAno(clienteT)); 
                 case 99:
                     clientes.add(new Cliente("lucas", "123456", "20309", clientes.size()));
                     clientes.add(new Cliente("laura", "123457", "24343", clientes.size()));
@@ -383,5 +393,29 @@ public class Main {
         }
         return null;
     }
+
+    public static Cliente procurarCliente(int idCliente) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdCliente() == idCliente) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public static LinkedList<Bilhete> bilhetesUltimoAno(Cliente clienteT) {
+        LocalDate data = LocalDate.now();
+        
+        //String  = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+
+       // LinkedList<Bilhete> teste = clienteT.getViagens().stream().filter(v -> v.getDataVencimento());
+        
+       // LinkedList<Bilhete> teste = clienteT.getViagens().stream().filter(v -> v.formatter.parse(getDataVencimento()).isBefore(data.minusYears(1)));
+
+        return teste;
+     
+
+    }
+
 
 }
