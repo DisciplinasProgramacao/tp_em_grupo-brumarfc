@@ -55,7 +55,7 @@ public class Voo implements Serializable {
      * Formata a forma que será impresso as informações do Voo
      */
     public String toString() {
-        return "\nData: " + this.data + "\nTrechos: " + this.trechos.toString() + "\n Preço trecho: R$" + this.precoBase
+        return "\nData: " + this.data + "\nTrechos: " + this.trechos.toString()
                 + "\n _________________________________________";
     }
 
