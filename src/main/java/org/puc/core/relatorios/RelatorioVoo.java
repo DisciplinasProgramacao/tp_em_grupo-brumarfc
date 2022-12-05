@@ -1,7 +1,7 @@
 package org.puc.core.relatorios;
 
 import org.puc.core.bilhete.Bilhete;
-import org.puc.core.voo.Trecho;
+import org.puc.core.cia.Cliente;
 import org.puc.core.voo.Voo;
 
 import java.math.BigDecimal;
@@ -9,9 +9,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 public class RelatorioVoo {
 
@@ -37,14 +37,19 @@ public class RelatorioVoo {
         return message.toString();
     }
 
-    public String relatorioValorArrecadado(Date date, LinkedList<Bilhete> bilhetes) {
+    public String relatorioValorArrecadado(int date, LinkedList<Bilhete> bilhetes) {
 
-        if (date != null) {
+        if (date != -1) {
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH, 1);
+            calendar.set(Calendar.MONTH, date);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+
+            Calendar calendar2 = calendar;
+            calendar2.add(Calendar.MONTH, 1);
 
             return bilhetes.stream()
-                    .filter(b -> b.getDataVencimento().after(date) && b.getDataVencimento().before(calendar.getTime()))
+                    .filter(b -> b.getDataVencimento().after(calendar.getTime()) && b.getDataVencimento().before(calendar2.getTime()))
                     .map(Bilhete::getPreco)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .toPlainString();
@@ -54,5 +59,9 @@ public class RelatorioVoo {
                 .map(Bilhete::getPreco)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .toPlainString();
+    }
+
+    public String clienteComMaisPontos(LinkedList<Cliente> clientes) {
+        return clientes.stream().max(Comparator.comparing(Cliente::getQtdePontos)).toString();
     }
 }

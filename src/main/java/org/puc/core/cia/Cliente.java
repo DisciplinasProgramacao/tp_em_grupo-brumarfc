@@ -47,6 +47,10 @@ public class Cliente implements Serializable {
         return idCliente;
     }
 
+    public BigDecimal getQtdePontos() {
+        return qtdePontos;
+    }
+
     public String relatorio(){
         return "ID do Cliente: " + this.idCliente + "\nNome: " + this.nome + "\nCPF: " + this.cpf + "\nAniversário: " + this.aniversario + "\nViagens: " + this.viagens.toString();    
     }

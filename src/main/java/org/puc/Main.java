@@ -382,7 +382,7 @@ public class Main {
         System.out.println("BrumarFC Airlines - Relatorios");
         System.out.println("1 - Relatorio de voos para uma cidade, numa data, com mais de 100 reservas");
         System.out.println("2 - Relatorio de faturament");
-//        System.out.println("3 - Cadastrar voo");
+        System.out.println("3 - Cliente com mais pontos acumulados");
 //        System.out.println("4 - Comprar bilhetes");
 //        System.out.println("5 - Relatório Cliente");
 //        System.out.println("6 - Relatorios");
@@ -412,13 +412,10 @@ public class Main {
             case 2:
                 System.out.println("Insira o numero do mes, ou -1 para calcular todas as datas");
                 int month = sc.nextInt();
-                Calendar calendar = null;
-                if (month != -1) {
-                    calendar = Calendar.getInstance();
-                    calendar.set(Calendar.MONTH, month);
-                    calendar.set(Calendar.DAY_OF_MONTH, 1);
-                }
-                System.out.println(relatorioVoo.relatorioValorArrecadado(calendar == null ? null : calendar.getTime(), bilhetes));
+                System.out.println(relatorioVoo.relatorioValorArrecadado(month, bilhetes));
+                break;
+            case 3:
+                System.out.println(relatorioVoo.clienteComMaisPontos(clientes));
                 break;
         }
     }
