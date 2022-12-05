@@ -34,6 +34,9 @@ public class BilhetePromocional extends Bilhete implements Serializable{
      */
     public BilhetePromocional(Date dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
         super(dataVencimento, pontos, preco, voos, id);
+        this.vencimento = dataVencimento;
+        this.idBilhete = id;
+        this.pontosFidelidade = pontos.intValue();
     }
     // #endregion
 

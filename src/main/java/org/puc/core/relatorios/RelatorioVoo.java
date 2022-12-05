@@ -94,12 +94,14 @@ public class RelatorioVoo {
     public List<Bilhete> bilhetesUltimoAno(Cliente cliente) {
         
         Calendar hoje =  Calendar.getInstance();
-        Calendar umAno = hoje;
+        Calendar umAno = Calendar.getInstance();
         umAno.add(Calendar.YEAR, -1);
 
+        System.out.println(hoje.getTime().toString());
+        System.out.println(umAno.getTime().toString());
         return cliente.getViagens()
                 .stream()
-                .filter(c -> c.getDataVencimento().after(hoje.getTime()) && c.getDataVencimento().before(umAno.getTime()))
+                .filter(c -> c.getDataVencimento().before(hoje.getTime()) && c.getDataVencimento().after(umAno.getTime()))
                 .collect(Collectors.toList());
         
     }

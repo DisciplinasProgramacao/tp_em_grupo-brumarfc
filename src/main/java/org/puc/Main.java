@@ -34,6 +34,11 @@ public class Main {
     static String arqDadosVoos = "dadosVoos.bin";
     static String arqDadosBilhetes = "dadosBilhetes.bin";
 
+    /**
+     * grava os dados dos clientes no arquivo local
+     *
+     * @param clientes lista dos clientes gerados
+     */
     public static void gravarDadosClientes(LinkedList<Cliente> clientes) throws IOException {
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosClientes));
         for (Cliente cliente : clientes) {
@@ -42,6 +47,11 @@ public class Main {
         obj.close();
     }
 
+    /**
+     * grava os dados dos trechos no arquivo local
+     *
+     * @param trechos lista dos trechos gerados
+     */
     public static void gravarDadosTrechos(LinkedList<Trecho> trechos) throws IOException {
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosTrechos));
         for (Trecho trecho : trechos) {
@@ -50,6 +60,11 @@ public class Main {
         obj.close();
     }
 
+    /**
+     * grava os dados dos voos no arquivo local
+     *
+     * @param voos lista dos voos gerados
+     */
     public static void gravarDadosVoos(LinkedList<Voo> voos) throws IOException {
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosVoos));
         for (Voo voo : voos) {
@@ -58,6 +73,11 @@ public class Main {
         obj.close();
     }
 
+    /**
+     * grava os dados dos bilhetes no arquivo local
+     *
+     * @param bilhetes lista dos bilhetes gerados
+     */
     public static void gravarDadosBilhetes(LinkedList<Bilhete> bilhetes) throws IOException {
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(arqDadosBilhetes));
         for (Bilhete bilhete : bilhetes) {
@@ -66,6 +86,11 @@ public class Main {
         obj.close();
     }
 
+    /**
+     * carrega os dados dos clientes no arquivo local
+     *
+     * @return lista de clientes
+     */
     public static LinkedList<Cliente> carregarDadosClientes(Scanner teclado) {
         FileInputStream dados;
         LinkedList<Cliente> todosClientes = new LinkedList<>();
@@ -92,6 +117,11 @@ public class Main {
         return todosClientes;
     }
 
+    /**
+     * carrega os dados dos trechos no arquivo local
+     *
+     * @return lista de trechos
+     */
     public static LinkedList<Trecho> carregarDadosTrechos(Scanner teclado) {
         FileInputStream dados;
         LinkedList<Trecho> todosTrechos = new LinkedList<>();
@@ -118,6 +148,11 @@ public class Main {
         return todosTrechos;
     }
 
+    /**
+     * carrega os dados dos voos no arquivo local
+     *
+     * @return lista de voos
+     */
     public static LinkedList<Voo> carregarDadosVoos(Scanner teclado) {
         FileInputStream dados;
         LinkedList<Voo> todosVoos = new LinkedList<>();
@@ -144,6 +179,11 @@ public class Main {
         return todosVoos;
     }
 
+    /**
+     * carrega os dados dos bilhetes no arquivo local
+     *
+     * @return lista de bilhetes
+     */
     public static LinkedList<Bilhete> carregarDadosBilhetes(Scanner teclado) {
         FileInputStream dados;
         LinkedList<Bilhete> todosBilhetes = new LinkedList<>();
@@ -170,6 +210,12 @@ public class Main {
         return todosBilhetes;
     }
 
+
+    /**
+     * mostra o menu para o user
+     *
+     * @param teclado - scanner do teclado
+     */
     public static int menu(Scanner teclado) {
         System.out.println("------------------------------------------------------");
         System.out.println("BrumarFC Airlines");
@@ -187,13 +233,18 @@ public class Main {
         return opcao;
     }
 
+    /**
+     * executa o menu para interação com o user
+     *
+     * @param args default param of main
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        if (clientes == null || trechos == null || voos == null || bilhetes==null ||
-                clientes.isEmpty() || trechos.isEmpty() || voos.isEmpty() || bilhetes.isEmpty()){
+        if (clientes == null || trechos == null || voos == null || bilhetes == null ||
+                clientes.isEmpty() || trechos.isEmpty() || voos.isEmpty() || bilhetes.isEmpty()) {
             popularDados();
-        }
-        else {
+        } else {
             clientes = carregarDadosClientes(sc);
             trechos = carregarDadosTrechos(sc);
             voos = carregarDadosVoos(sc);
@@ -231,6 +282,11 @@ public class Main {
         gravarDadosVoos(voos);
     }
 
+    /**
+     * popula os dados locais com dados mockups
+     *
+     * @throws ParseException
+     */
     private static void popularDados() throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size()));
@@ -270,16 +326,13 @@ public class Main {
         voosBilhete.add(voos.get(1));
         voosBilhete.add(voos.get(3));
 
-        Bilhete bilheteProm = new BilhetePromocional(df.parse("24/04/2022"), new BigDecimal(500), new BigDecimal(500.50), voosBilhete,
-                bilhetes.size());
+        Bilhete bilheteProm = new BilhetePromocional(df.parse("24/04/2022"), new BigDecimal(500), new BigDecimal(500.50), voosBilhete, bilhetes.size());
         bilhetes.add(bilheteProm);
 
-        Bilhete bilheteFidel = new BilhetePromocional(df.parse("23/05/2025"), new BigDecimal(280), new BigDecimal(280.00), voosBilhete,
-                bilhetes.size());
+        Bilhete bilheteFidel = new BilhetePromocional(df.parse("23/05/2025"), new BigDecimal(280), new BigDecimal(280.00), voosBilhete, bilhetes.size());
         bilhetes.add(bilheteFidel);
 
-        Bilhete bilheteSimples = new BilheteSimples(df.parse("20/03/2030"), new BigDecimal(780), new BigDecimal(780.88), voosBilhete,
-                bilhetes.size());
+        Bilhete bilheteSimples = new BilheteSimples(df.parse("20/03/2030"), new BigDecimal(780), new BigDecimal(780.88), voosBilhete, bilhetes.size());
         bilhetes.add(bilheteSimples);
 
         LinkedList<Voo> voosBilhete2 = new LinkedList<Voo>();
@@ -294,11 +347,16 @@ public class Main {
                 voosBilhete2, bilhetes.size());
         bilhetes.add(bilheteProm2);
 
-        Bilhete bilheteFidel2 = new BilheteFidelidade(df.parse("23/02/2025") , new BigDecimal(280), new BigDecimal(280.00),
+        Bilhete bilheteFidel2 = new BilheteFidelidade(df.parse("23/02/2025"), new BigDecimal(280), new BigDecimal(280.00),
                 voosBilhete2, bilhetes.size());
         bilhetes.add(bilheteFidel2);
     }
 
+    /**
+     * compra o bilhete
+     *
+     * @param sc scanner
+     */
     public static void comprar(Scanner sc) {
         Cliente clienteCompra = null;
         while (clienteCompra == null) {
@@ -377,6 +435,9 @@ public class Main {
         }
     }
 
+    /**
+     * mostra o submenu para o user, na opcao de relatorios
+     */
     private static void submenu() {
 
         Scanner sc = new Scanner(System.in);
@@ -396,7 +457,7 @@ public class Main {
         RelatorioVoo relatorioVoo = new RelatorioVoo();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
-        switch (opcao){
+        switch (opcao) {
             case 1:
                 System.out.println("Cidade: ");
                 String city = sc.next();
@@ -435,8 +496,8 @@ public class Main {
                 sc.nextLine();
                 try {
                     Voo voo = procurarVoo(idV);
-                     System.out.println(voo.toString());
-                } catch (NoSuchElementException e){
+                    System.out.println(voo.toString());
+                } catch (NoSuchElementException e) {
                     System.out.println("Voo não encontrado");
                 }
                 break;
@@ -447,7 +508,7 @@ public class Main {
                 if (procurad == null) {
                     System.out.println("Cliente não encontrado, informe um código de cliente existente");
                 } else {
-                    System.out.println(relatorioVoo.bilhetesUltimoAno(procurad));
+                    System.out.println(relatorioVoo.bilhetesUltimoAno(procurad).toString());
                 }
                 break;
             default:
@@ -455,8 +516,13 @@ public class Main {
         }
     }
 
-    // Métodos Switches
 
+    /**
+     * cadastra um cliente
+     *
+     * @param sc scanner do teclado
+     * @return cliente cadastrado
+     */
     public static Cliente cadastrarCliente(Scanner sc) {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Informe o nome:");
@@ -466,14 +532,20 @@ public class Main {
         System.out.println("Informe a data de nascimento:");
         String aniversario = sc.nextLine();
         Date dob;
-        try{
+        try {
             dob = df.parse(aniversario);
-        }catch (ParseException e){
+        } catch (ParseException e) {
             dob = new Date();
         }
         return new Cliente(nome, cpf, dob, clientes.size());
     }
 
+    /**
+     * cadastra um trecho
+     *
+     * @param sc scanner do teclado
+     * @return o trecho cadastrado
+     */
     public static Trecho cadastrarTrecho(Scanner sc) {
         System.out.println("Informe a origem:");
         String origem = sc.nextLine();
@@ -482,6 +554,13 @@ public class Main {
         return new Trecho(origem, destino);
     }
 
+
+    /**
+     * cadastra um voo
+     *
+     * @param sc scanner do teclado
+     * @return o voo cadastrado
+     */
     public static Voo cadastrarVoo(Scanner sc) {
         int opcao;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -490,19 +569,23 @@ public class Main {
         Voo voo;
         try {
             voo = new Voo(df.parse(data));
-        }catch (ParseException e){
+        } catch (ParseException e) {
             voo = new Voo(new Date());
         }
         do {
-            opcao = menu(sc);
-            System.out.println(" 1 - Vincular trechos:");
+            System.out.println("1 - Vincular trechos:");
             System.out.println("2 - Todos os trechos já cadastrados!");
+            opcao = sc.nextInt();
+            sc.next();
             if (opcao == 1) {
                 System.out.println("Informe a identificação do trecho:");
                 int idTrecho = sc.nextInt();
+                sc.next();
                 Trecho trecho = recuperarTrechos(idTrecho);
                 if (trecho != null) {
                     voo.addTrecho(trecho);
+                    System.out.println("trecho vinculado!");
+                    System.out.println(voo.getTrechos().toString());
                 } else
                     System.out.println("Trecho não encontrado.");
             }
@@ -510,6 +593,13 @@ public class Main {
         return voo;
     }
 
+
+    /**
+     * procura um trecho
+     *
+     * @param idTrecho id do trecho para procurar
+     * @return a informação do trecho
+     */
     public static Trecho recuperarTrechos(int idTrecho) {
         for (Trecho trecho : trechos) {
             if (trecho.getIdTrecho() == idTrecho) {
@@ -519,6 +609,12 @@ public class Main {
         return null;
     }
 
+    /**
+     * procura por um cliente a partir de um id
+     *
+     * @param idCliente id do cliente que deseja procurar
+     * @return o cliente procurado
+     */
     public static Cliente procurarCliente(int idCliente) {
         for (Cliente cliente : clientes) {
             if (cliente.getIdCliente() == idCliente) {
@@ -528,6 +624,13 @@ public class Main {
         return null;
     }
 
+    /**
+     * procura por um voo a partir de um id
+     *
+     * @param idVoo id do voo que deseja procurar
+     * @return o voo procurado
+     * @throws NoSuchElementException se não encontrar nada a partir do id
+     */
     public static Voo procurarVoo(int idVoo) {
         return voos.stream().filter(v -> v.getIdVoo() == idVoo).findFirst().orElseThrow();
     }
