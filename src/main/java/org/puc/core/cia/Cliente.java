@@ -44,11 +44,13 @@ public class Cliente implements Serializable {
 
     /**
      * Efetua a compra de um Bilhete, vincula o bilhete ao cliente e adiciona o bilhete na sua lista de viagens
-     * @param bilhete bilhete a ser adquirido
+     *
+     * @param bilhete  bilhete a ser adquirido
+     * @param useBoost
      * @return Preço a ser pago
      * @throws Exception
      */
-    public BigDecimal comprarBilhete(Bilhete bilhete) throws Exception{
+    public BigDecimal comprarBilhete(Bilhete bilhete, String useBoost) throws Exception{
         BigDecimal preco;
         if (bilhete instanceof BilheteFidelidade) {
             if (this.qtdePontos.intValue() < bilhete.getPrecoBilheteEmPts().intValue())  {
@@ -58,8 +60,15 @@ public class Cliente implements Serializable {
             this.qtdePontos = this.qtdePontos.subtract(this.qtdePontos);
         }
         else {
-            this.qtdePontos = this.qtdePontos.add(bilhete.calcularPontos(bilhete).multiply(bilhete.getAcelerador()));
-            preco = bilhete.getPreco().add(bilhete.getPrecoAcelerador());
+            if (useBoost.equalsIgnoreCase("s")) {
+                BigDecimal boost = bilhete.getAcelerador();
+                BigDecimal priceBoost = bilhete.getPrecoAcelerador();
+                this.qtdePontos = this.qtdePontos.add(bilhete.calcularPontos(bilhete)).multiply(boost);
+                preco = bilhete.getPreco().add(priceBoost);
+            } else {
+                this.qtdePontos = this.qtdePontos.add(bilhete.calcularPontos(bilhete));
+                preco = bilhete.getPreco();
+            }
         }
         viagens.add(bilhete);
         bilhete.vender(this);
@@ -76,6 +85,10 @@ public class Cliente implements Serializable {
 
     public BigDecimal getQtdePontos() {
         return qtdePontos;
+    }
+
+    public LinkedList<Bilhete> getViagens() {
+        return viagens;
     }
 
     /**
