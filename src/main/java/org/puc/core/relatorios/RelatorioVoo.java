@@ -21,7 +21,7 @@ public class RelatorioVoo {
         voos.stream()
                 .filter(v -> v.getPassagens().size() > 100 && v.getTrechos().stream().anyMatch(t -> t.getDestino().equalsIgnoreCase(cidade)))
                 .filter(v -> {
-                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                     Date date;
                     try {
                         date = df.parse(v.getData());

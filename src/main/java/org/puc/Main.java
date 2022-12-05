@@ -381,13 +381,13 @@ public class Main {
         int opcao = sc.nextInt();
         sc.nextLine();
         RelatorioVoo relatorioVoo = new RelatorioVoo();
-        DateFormat df = new SimpleDateFormat();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         switch (opcao){
             case 1:
                 System.out.println("Cidade: ");
                 String city = sc.next();
-                System.out.println("Data:");
+                System.out.println("Data (dd/MM/yyyy) :");
                 String dateString = sc.next();
                 Date date;
                 try {
