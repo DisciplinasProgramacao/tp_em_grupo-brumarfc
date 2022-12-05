@@ -177,8 +177,7 @@ public class Main {
         System.out.println("2 - Cadastrar trecho");
         System.out.println("3 - Cadastrar voo");
         System.out.println("4 - Comprar bilhetes");
-        System.out.println("5 - Relatório Cliente");
-        System.out.println("6 - Relatorios");
+        System.out.println("5 - Relatorios");
         System.out.println("99 - Popular class");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -290,17 +289,6 @@ public class Main {
 
                     break;
                 case 5:
-                    System.out.println("Informe o código do cliente:");
-                    int idCliente = sc.nextInt();
-                    Cliente procurado = procurarCliente(idCliente);
-                    if (procurado == null) {
-                        System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
-                    } else {
-                        System.out.println(procurado.relatorio());
-                    }
-                    break;
-
-                case 6:
                     submenu();
                     break;
                 case 99:
@@ -383,6 +371,7 @@ public class Main {
         System.out.println("1 - Relatorio de voos para uma cidade, numa data, com mais de 100 reservas");
         System.out.println("2 - Relatorio de faturament");
         System.out.println("3 - Cliente com mais pontos acumulados");
+        System.out.println("4 - Relatório Cliente");
 //        System.out.println("4 - Comprar bilhetes");
 //        System.out.println("5 - Relatório Cliente");
 //        System.out.println("6 - Relatorios");
@@ -416,6 +405,16 @@ public class Main {
                 break;
             case 3:
                 System.out.println(relatorioVoo.clienteComMaisPontos(clientes));
+                break;
+            case 4:
+                System.out.println("Informe o código do cliente:");
+                int idCliente = sc.nextInt();
+                Cliente procurado = procurarCliente(idCliente);
+                if (procurado == null) {
+                    System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+                } else {
+                    System.out.println(procurado.relatorio());
+                }
                 break;
         }
     }
