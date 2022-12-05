@@ -372,8 +372,7 @@ public class Main {
         System.out.println("2 - Relatorio de faturament");
         System.out.println("3 - Cliente com mais pontos acumulados");
         System.out.println("4 - Relatório Cliente");
-//        System.out.println("4 - Comprar bilhetes");
-//        System.out.println("5 - Relatório Cliente");
+        System.out.println("5 - Procurar Voo");
 //        System.out.println("6 - Relatorios");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -416,6 +415,16 @@ public class Main {
                     System.out.println(procurado.relatorio());
                 }
                 break;
+            case 5:
+                System.out.println("digite o id vo voo");
+                int idV = sc.nextInt();
+                sc.nextLine();
+                try {
+                    Voo voo = procurarVoo(idV);
+                     System.out.println(voo.toString());
+                } catch (NoSuchElementException e){
+                    System.out.println("Voo não encontrado");
+                }
         }
     }
 
@@ -477,6 +486,10 @@ public class Main {
             }
         }
         return null;
+    }
+
+    public static Voo procurarVoo(int idVoo) {
+        return voos.stream().filter(v -> v.getIdVoo() == idVoo).findFirst().orElseThrow();
     }
 
 }

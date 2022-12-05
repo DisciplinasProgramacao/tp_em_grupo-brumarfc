@@ -15,6 +15,9 @@ public class Voo implements Serializable{
     private ArrayList<Bilhete> passagens;
     private BigDecimal precoBase;
 
+    public Voo() {
+    }
+
     public Voo(String data) {
         this.data = data;
         this.idVoo = incrementoVoo ++;
@@ -41,6 +44,13 @@ public class Voo implements Serializable{
         return data;
     }
 
+    public int getIdVoo() {
+        return idVoo;
+    }
+
+    public Voo findVoo(LinkedList<Voo> voos){
+        voos.stream().filter(Voo::getIdVoo == )fin
+    }
     public String toString(){
         return "\nData: " + this.data + "\nTrechos: " + this.trechos.toString() + "\n Preço trecho: R$" + this.precoBase + "\n _________________________________________";
     }
