@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.stream.Collector;
@@ -309,15 +310,15 @@ public class Main {
                     voosBilhete.add(voos.get(1));
                     voosBilhete.add(voos.get(3));
 
-                    Bilhete bilheteProm = new BilhetePromocional("24/04/2022", new BigDecimal(500), new BigDecimal(500.50), voosBilhete,
+                    Bilhete bilheteProm = new BilhetePromocional(/*"24/04/2022"*/ new Date(), new BigDecimal(500), new BigDecimal(500.50), voosBilhete,
                             bilhetes.size());
                     bilhetes.add(bilheteProm);
 
-                    Bilhete bilheteFidel = new BilhetePromocional("23/05/2025", new BigDecimal(280), new BigDecimal(280.00), voosBilhete,
+                    Bilhete bilheteFidel = new BilhetePromocional(/*"23/05/2025"*/ new Date(), new BigDecimal(280), new BigDecimal(280.00), voosBilhete,
                             bilhetes.size());
                     bilhetes.add(bilheteFidel);
 
-                    Bilhete bilheteSimples = new BilheteSimples("20/03/2030", new BigDecimal(780), new BigDecimal(780.88), voosBilhete,
+                    Bilhete bilheteSimples = new BilheteSimples(/*"20/03/2030"*/ new Date(), new BigDecimal(780), new BigDecimal(780.88), voosBilhete,
                             bilhetes.size());
                     bilhetes.add(bilheteSimples);
 
@@ -325,15 +326,15 @@ public class Main {
                     voosBilhete2.add(voos.get(0));
                     voosBilhete2.add(voos.get(2));
 
-                    Bilhete bilheteSimples2 = new BilheteSimples("23/05/2022", new BigDecimal(120), new BigDecimal(120.88), voosBilhete2,
+                    Bilhete bilheteSimples2 = new BilheteSimples(/*"23/05/2022"*/ new Date(), new BigDecimal(120), new BigDecimal(120.88), voosBilhete2,
                             bilhetes.size());
                     bilhetes.add(bilheteSimples2);
 
-                    Bilhete bilheteProm2 = new BilhetePromocional("24/09/2022", new BigDecimal(345), new BigDecimal(345.50),
+                    Bilhete bilheteProm2 = new BilhetePromocional(/*"24/09/2022"*/ new Date(), new BigDecimal(345), new BigDecimal(345.50),
                             voosBilhete2, bilhetes.size());
                     bilhetes.add(bilheteProm2);
 
-                    Bilhete bilheteFidel2 = new BilheteFidelidade("23/02/2025",new BigDecimal(280), new BigDecimal(280.00),
+                    Bilhete bilheteFidel2 = new BilheteFidelidade(/*"23/02/2025"*/ new Date(),new BigDecimal(280), new BigDecimal(280.00),
                             voosBilhete2, bilhetes.size());
                     bilhetes.add(bilheteFidel2);
             }

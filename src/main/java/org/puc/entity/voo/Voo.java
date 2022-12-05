@@ -4,7 +4,6 @@ import org.puc.entity.bilhete.Bilhete;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedList;
 

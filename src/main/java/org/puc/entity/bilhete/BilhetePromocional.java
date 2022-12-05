@@ -1,12 +1,11 @@
 package org.puc.entity.bilhete;
 
-import org.puc.entity.cia.Cliente;
 import org.puc.entity.voo.Voo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class BilhetePromocional extends Bilhete implements Serializable{
     protected LinkedList<Voo> voo;
     private int idCliente;
 
-    public BilhetePromocional(String dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
+    public BilhetePromocional(java.util.Date dataVencimento, BigDecimal pontos, BigDecimal preco, LinkedList<Voo> voos, int id) {
         super(dataVencimento, pontos, preco, voos, id);
     }
 
