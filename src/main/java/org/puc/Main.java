@@ -177,7 +177,7 @@ public class Main {
         System.out.println("2 - Cadastrar trecho");
         System.out.println("3 - Cadastrar voo");
         System.out.println("4 - Comprar bilhetes");
-        System.out.println("5 - Relatorios");
+        System.out.println("5 - Relatórios");
         System.out.println("99 - Popular class");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
@@ -310,7 +310,7 @@ public class Main {
                 }
             }
             if (clienteCompra == null) {
-                System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+                System.out.println("Cliente não encontrado, informe um código de cliente existente");
             }
         }
 
@@ -332,7 +332,7 @@ public class Main {
                 }
             }
             if (bilheteCompra == null && bilheteIndisponivel == false) {
-                System.out.println("Bilhete não encontrado, informe um codigo de bilhete existente");
+                System.out.println("Bilhete não encontrado, informe um código de bilhete existente");
             }
             bilheteIndisponivel = false;
         }
@@ -353,10 +353,10 @@ public class Main {
 
             Arrays.stream(Type.values()).forEach(b -> {
                 System.out.println("----------------------------");
-                System.out.println("Codigo - " + b.name() + " ,informacoes:");
+                System.out.println("Código - " + b.name() + " ,informações:");
                 System.out.println(b.longName + " que multiplica os pontos em " + b.boost + " e custa " + b.cost);
             });
-            System.out.println("Escolha o seu! (digite o codigo do acelerador)");
+            System.out.println("Escolha o seu! (digite o código do acelerador)");
             String opcBoost = sc.next();
             while (!success) {
                 try {
@@ -382,12 +382,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("------------------------------------------------------");
         System.out.println("BrumarFC Airlines - Relatorios");
-        System.out.println("1 - Relatorio de voos para uma cidade, numa data, com mais de 100 reservas");
-        System.out.println("2 - Relatorio de faturament");
+        System.out.println("1 - Relatório de voos para uma cidade, numa data, com mais de 100 reservas");
+        System.out.println("2 - Relatório de faturamento");
         System.out.println("3 - Cliente com mais pontos acumulados");
         System.out.println("4 - Relatório Cliente");
         System.out.println("5 - Procurar Voo");
-        System.out.println("6 - Relatorio cliente");
+        System.out.println("6 - Relatório bilhetes");
         System.out.println("0 - Sair");
         System.out.println("------------------------------------------------------");
 
@@ -412,7 +412,7 @@ public class Main {
                 break;
 
             case 2:
-                System.out.println("Insira o numero do mes, ou -1 para calcular todas as datas");
+                System.out.println("Insira o numero do mês, ou -1 para calcular todas as datas");
                 int month = sc.nextInt();
                 System.out.println(relatorioVoo.relatorioValorArrecadado(month, bilhetes));
                 break;
@@ -424,7 +424,7 @@ public class Main {
                 int idCliente = sc.nextInt();
                 Cliente procurado = procurarCliente(idCliente);
                 if (procurado == null) {
-                    System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+                    System.out.println("Cliente não encontrado, informe um código de cliente existente");
                 } else {
                     System.out.println(procurado.relatorio());
                 }
@@ -445,7 +445,7 @@ public class Main {
                 int idClient = sc.nextInt();
                 Cliente procurad = procurarCliente(idClient);
                 if (procurad == null) {
-                    System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+                    System.out.println("Cliente não encontrado, informe um código de cliente existente");
                 } else {
                     System.out.println(relatorioVoo.bilhetesUltimoAno(procurad));
                 }
