@@ -1,8 +1,9 @@
 package org.puc.core.boost;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class TicketBooster {
+public class TicketBooster implements Serializable {
     private String boostName;
     private BigDecimal cost;
     private BigDecimal boost;

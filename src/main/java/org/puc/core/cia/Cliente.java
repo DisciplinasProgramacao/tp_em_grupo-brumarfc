@@ -5,6 +5,7 @@ import org.puc.core.bilhete.BilheteFidelidade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Cliente implements Serializable {
@@ -15,7 +16,7 @@ public class Cliente implements Serializable {
     private BigDecimal qtdePontos;
     private String nome;
     private String cpf;
-    private String aniversario;
+    private Date aniversario;
     private LinkedList<Bilhete> viagens;
 
     // #endregion
@@ -29,7 +30,7 @@ public class Cliente implements Serializable {
      * @param aniversario Data de aniversario do cliente
      * @param id Identificador do cliente
      */
-    public Cliente (String nom, String cpf, String aniversario, int id){
+    public Cliente (String nom, String cpf, Date aniversario, int id){
         this.nome = nom;
         this.cpf = cpf;
         this.aniversario = aniversario;

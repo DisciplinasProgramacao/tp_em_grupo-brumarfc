@@ -211,93 +211,19 @@ public class Main {
                     voos.add(novoVoo);
                     break;
                 case 4:
-                    Cliente clienteCompra = null;
-                    while (clienteCompra == null) {
-                        System.out.println("Informe o código do cliente:");
-                        int idCliente = sc.nextInt();
-                        for (Cliente item : clientes) {
-                            if (idCliente == item.getIdCliente()) {
-                                clienteCompra = item;
-                            }
-                        }
-                        if (clienteCompra == null) {
-                            System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
-                        }
-                    }
-
-                    Bilhete bilheteCompra = null;
-                    boolean bilheteIndisponivel = false;
-                    while (bilheteCompra == null) {
-                        System.out.println("Informe o código do bilhete");
-                        int idBilhete = sc.nextInt();
-                        for (Bilhete item : bilhetes) {
-                            if (idBilhete == item.getIdBilhete()) {
-                                if (item.disponivel()) {
-                                    bilheteCompra = item;
-                                    break;
-                                } else {
-                                    System.out.println("Bilhete indisponível, gentileza informar outro código:");
-                                    bilheteIndisponivel = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (bilheteCompra == null && bilheteIndisponivel == false) {
-                            System.out.println("Bilhete não encontrado, informe um codigo de bilhete existente");
-                        }
-                        bilheteIndisponivel = false;
-                    }
-                    System.out.println("Deseja comprar com os pontos do programa fidelidade? (s/n)");
-                    String utilizarPts = sc.next();
-                    if (utilizarPts.toUpperCase().equals("S")) {
-                        // Transformar o bilhete em um bilhete fidelidade para não contabilizar os pts;
-                        bilheteCompra = new BilheteFidelidade(bilheteCompra.getDataVencimento(), bilheteCompra.getPrecoBilheteEmPts(), bilheteCompra.getPreco(), bilheteCompra.getVoos(), bilheteCompra.getId());
-                    }
-
-                    System.out.println("Deseja incluir um acelerador de pontos? (s/n)");
-                    String useBoost = sc.next();
-
-                    if (useBoost.equalsIgnoreCase("s")) {
-                        boolean success = false;
-
-                        System.out.println("Temos os seguintes aceleradores: ");
-
-                        Arrays.stream(Type.values()).forEach(b -> {
-                            System.out.println("----------------------------");
-                            System.out.println("Codigo - " + b.name() + " ,informacoes:");
-                            System.out.println(b.longName + " que multiplica os pontos em " + b.boost + " e custa " + b.cost);
-                        });
-                        System.out.println("Escolha o seu! (digite o codigo do acelerador)");
-                        String opcBoost = sc.next();
-                        while (!success) {
-                            try {
-                                Type type = Type.valueOf(opcBoost.toUpperCase());
-                                bilheteCompra.giveBooster(type);
-                                success = true;
-                            } catch (IllegalArgumentException e) {
-                                System.out.println("Houve um problema ao digitar o código, tente novamente");
-                            }
-                        }
-                    }
-
-                    try {
-                        BigDecimal valorCompra = clienteCompra.comprarBilhete(bilheteCompra);
-                        System.out.println("O valor total da compra é: R$ " + valorCompra.toString());
-                    } catch (Exception exception) {
-                        System.out.println(exception.getMessage());
-                    }
-
+                    comprar(sc);
                     break;
                 case 5:
                     submenu();
                     break;
                 case 99:
-                    clientes.add(new Cliente("lucas", "123456", "20309", clientes.size()));
-                    clientes.add(new Cliente("laura", "123457", "24343", clientes.size()));
-                    clientes.add(new Cliente("monica", "123458", "24343", clientes.size()));
-                    clientes.add(new Cliente("joão", "123459", "24343", clientes.size()));
-                    clientes.add(new Cliente("maria", "123461", "24343", clientes.size()));
-                    clientes.add(new Cliente("moana", "123471", "24453", clientes.size()));
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size()));
+                    clientes.add(new Cliente("laura", "123457", df.parse("13/07/1958"), clientes.size()));
+                    clientes.add(new Cliente("monica", "123458", df.parse("01/09/1997"), clientes.size()));
+                    clientes.add(new Cliente("joão", "123459", df.parse("25/12/1986"), clientes.size()));
+                    clientes.add(new Cliente("maria", "123461", df.parse("10/10/2001"), clientes.size()));
+                    clientes.add(new Cliente("moana", "123471", df.parse("01/07/1988"), clientes.size()));
 
                     trechos.add(new Trecho("belo horizonte", "maldivas"));
                     trechos.add(new Trecho("sao paulo", "santa catarina"));
@@ -364,6 +290,84 @@ public class Main {
         gravarDadosVoos(voos);
     }
 
+    public static void comprar(Scanner sc) {
+        Cliente clienteCompra = null;
+        while (clienteCompra == null) {
+            System.out.println("Informe o código do cliente:");
+            int idCliente = sc.nextInt();
+            for (Cliente item : clientes) {
+                if (idCliente == item.getIdCliente()) {
+                    clienteCompra = item;
+                }
+            }
+            if (clienteCompra == null) {
+                System.out.println("Cliente não encontrado, informe um codigo de cliente existente");
+            }
+        }
+
+        Bilhete bilheteCompra = null;
+        boolean bilheteIndisponivel = false;
+        while (bilheteCompra == null) {
+            System.out.println("Informe o código do bilhete");
+            int idBilhete = sc.nextInt();
+            for (Bilhete item : bilhetes) {
+                if (idBilhete == item.getIdBilhete()) {
+                    if (item.disponivel()) {
+                        bilheteCompra = item;
+                        break;
+                    } else {
+                        System.out.println("Bilhete indisponível, gentileza informar outro código:");
+                        bilheteIndisponivel = true;
+                        break;
+                    }
+                }
+            }
+            if (bilheteCompra == null && bilheteIndisponivel == false) {
+                System.out.println("Bilhete não encontrado, informe um codigo de bilhete existente");
+            }
+            bilheteIndisponivel = false;
+        }
+        System.out.println("Deseja comprar com os pontos do programa fidelidade? (s/n)");
+        String utilizarPts = sc.next();
+        if (utilizarPts.toUpperCase().equals("S")) {
+            // Transformar o bilhete em um bilhete fidelidade para não contabilizar os pts;
+            bilheteCompra = new BilheteFidelidade(bilheteCompra.getDataVencimento(), bilheteCompra.getPrecoBilheteEmPts(), bilheteCompra.getPreco(), bilheteCompra.getVoos(), bilheteCompra.getId());
+        }
+
+        System.out.println("Deseja incluir um acelerador de pontos? (s/n)");
+        String useBoost = sc.next();
+
+        if (useBoost.equalsIgnoreCase("s")) {
+            boolean success = false;
+
+            System.out.println("Temos os seguintes aceleradores: ");
+
+            Arrays.stream(Type.values()).forEach(b -> {
+                System.out.println("----------------------------");
+                System.out.println("Codigo - " + b.name() + " ,informacoes:");
+                System.out.println(b.longName + " que multiplica os pontos em " + b.boost + " e custa " + b.cost);
+            });
+            System.out.println("Escolha o seu! (digite o codigo do acelerador)");
+            String opcBoost = sc.next();
+            while (!success) {
+                try {
+                    Type type = Type.valueOf(opcBoost.toUpperCase());
+                    bilheteCompra.giveBooster(type);
+                    success = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Houve um problema ao digitar o código, tente novamente");
+                }
+            }
+        }
+
+        try {
+            BigDecimal valorCompra = clienteCompra.comprarBilhete(bilheteCompra);
+            System.out.println("O valor total da compra é: R$ " + valorCompra.toString());
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
     private static void submenu() {
 
         Scanner sc = new Scanner(System.in);
@@ -426,19 +430,30 @@ public class Main {
                 } catch (NoSuchElementException e){
                     System.out.println("Voo não encontrado");
                 }
+                break;
+            default:
+                System.out.println("opc invalida");
+                break;
         }
     }
 
     // Métodos Switches
 
     public static Cliente cadastrarCliente(Scanner sc) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Informe o nome:");
         String nome = sc.nextLine();
         System.out.println("Informe o cpf:");
         String cpf = sc.nextLine();
         System.out.println("Informe a data de nascimento:");
         String aniversario = sc.nextLine();
-        return new Cliente(nome, cpf, aniversario, clientes.size());
+        Date dob;
+        try{
+            dob = df.parse(aniversario);
+        }catch (ParseException e){
+            dob = new Date();
+        }
+        return new Cliente(nome, cpf, dob, clientes.size());
     }
 
     public static Trecho cadastrarTrecho(Scanner sc) {
