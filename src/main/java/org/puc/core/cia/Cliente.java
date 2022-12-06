@@ -37,6 +37,15 @@ public class Cliente implements Serializable {
         this.qtdePontos = new BigDecimal(0);
         viagens = new LinkedList<Bilhete>();
     }
+
+    public Cliente (String nom, String cpf, Date aniversario, int id, BigDecimal qtdePontos){
+        this.nome = nom;
+        this.cpf = cpf;
+        this.aniversario = aniversario;
+        this.idCliente = id;
+        this.qtdePontos = qtdePontos;
+        viagens = new LinkedList<Bilhete>();
+    }
     // #endregion
 
     // #region Métodos de funcionamento

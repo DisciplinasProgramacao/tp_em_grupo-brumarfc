@@ -82,7 +82,7 @@ public class RelatorioVoo {
         try{
             return clientes
                     .stream()
-                    .filter(c -> c.getViagens().stream().anyMatch(b -> b.getDataVencimento().before(calendar.getTime()) && b.getDataVencimento().after(c2.getTime())))
+//                    .filter(c -> c.getViagens().stream().anyMatch(b -> b.getDataVencimento().before(calendar.getTime()) && b.getDataVencimento().after(c2.getTime())))
                     .max(Comparator.comparing(Cliente::getQtdePontos))
                     .orElseThrow()
                     .relatorio();
@@ -97,11 +97,9 @@ public class RelatorioVoo {
         Calendar umAno = Calendar.getInstance();
         umAno.add(Calendar.YEAR, -1);
 
-        System.out.println(hoje.getTime().toString());
-        System.out.println(umAno.getTime().toString());
         return cliente.getViagens()
                 .stream()
-                .filter(c -> c.getDataVencimento().before(hoje.getTime()) && c.getDataVencimento().after(umAno.getTime()))
+//                .filter(c -> c.getDataVencimento().before(hoje.getTime()) && c.getDataVencimento().after(umAno.getTime()))
                 .collect(Collectors.toList());
         
     }

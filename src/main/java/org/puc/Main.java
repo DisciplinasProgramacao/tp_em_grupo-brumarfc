@@ -292,7 +292,7 @@ public class Main {
      */
     private static void popularDados() throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size())); //0
+        clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size(), BigDecimal.valueOf(100000))); //0
         clientes.add(new Cliente("laura", "123457", df.parse("13/07/1958"), clientes.size()));//1
         clientes.add(new Cliente("monica", "123458", df.parse("01/09/1997"), clientes.size()));//2
         clientes.add(new Cliente("joão", "123459", df.parse("25/12/1986"), clientes.size()));//3
