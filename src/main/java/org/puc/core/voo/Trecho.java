@@ -33,12 +33,18 @@ public class Trecho implements Serializable{
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Trecho{" +
+                "idTrecho=" + idTrecho +
+                ", destino='" + destino + '\'' +
+                ", origem='" + origem + '\'' +
+                '}';
+    }
+
     /**
      * Formata a forma que será impresso as informações do Trecho
      */
-    public String toString(){
-        return "\n Origem: " + this.origem + "\n Destino: " + this.destino;
-    }
     //#endregion
     
     //#region Getters

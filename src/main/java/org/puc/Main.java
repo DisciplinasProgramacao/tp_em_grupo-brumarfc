@@ -292,18 +292,18 @@ public class Main {
      */
     private static void popularDados() throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size()));
-        clientes.add(new Cliente("laura", "123457", df.parse("13/07/1958"), clientes.size()));
-        clientes.add(new Cliente("monica", "123458", df.parse("01/09/1997"), clientes.size()));
-        clientes.add(new Cliente("joão", "123459", df.parse("25/12/1986"), clientes.size()));
-        clientes.add(new Cliente("maria", "123461", df.parse("10/10/2001"), clientes.size()));
-        clientes.add(new Cliente("moana", "123471", df.parse("01/07/1988"), clientes.size()));
+        clientes.add(new Cliente("lucas", "123456", df.parse("20/05/1999"), clientes.size())); //0
+        clientes.add(new Cliente("laura", "123457", df.parse("13/07/1958"), clientes.size()));//1
+        clientes.add(new Cliente("monica", "123458", df.parse("01/09/1997"), clientes.size()));//2
+        clientes.add(new Cliente("joão", "123459", df.parse("25/12/1986"), clientes.size()));//3
+        clientes.add(new Cliente("maria", "123461", df.parse("10/10/2001"), clientes.size()));//4
+        clientes.add(new Cliente("moana", "123471", df.parse("01/07/1988"), clientes.size()));//5
 
-        trechos.add(new Trecho("belo horizonte", "maldivas"));
-        trechos.add(new Trecho("sao paulo", "santa catarina"));
-        trechos.add(new Trecho("dublin", "roraima"));
-        trechos.add(new Trecho("fortaleza", "nova iorque"));
-        trechos.add(new Trecho("natal", "rio de janeiro"));
+        trechos.add(new Trecho("belo horizonte", "maldivas"));//0
+        trechos.add(new Trecho("sao paulo", "santa catarina"));//1
+        trechos.add(new Trecho("dublin", "roraima"));//2
+        trechos.add(new Trecho("fortaleza", "nova iorque"));//3
+        trechos.add(new Trecho("natal", "rio de janeiro"));//4
 
         Voo voo = new Voo(df.parse("20/06/2022"));
         voo.addTrecho(recuperarTrechos(1));
@@ -313,11 +313,11 @@ public class Main {
         voo.addTrecho(recuperarTrechos(2));
         voos.add(voo);
 
-        voo = new Voo(df.parse("30/06/2021"));
+        voo = new Voo(df.parse("30/06/2022"));
         voo.addTrecho(recuperarTrechos(3));
         voos.add(voo);
 
-        voo = new Voo(df.parse("23/12/2021"));
+        voo = new Voo(df.parse("23/12/2022"));
         voo.addTrecho(recuperarTrechos(4));
         voos.add(voo);
 
@@ -329,13 +329,13 @@ public class Main {
         voosBilhete.add(voos.get(1));
         voosBilhete.add(voos.get(3));
 
-        Bilhete bilheteProm = new BilhetePromocional(df.parse("24/04/2022"), new BigDecimal(500), new BigDecimal(500.50), voosBilhete, bilhetes.size());
+        Bilhete bilheteProm = new BilhetePromocional(df.parse("24/04/2022"), new BigDecimal(500), new BigDecimal(500.50), voosBilhete, bilhetes.size());//0
         bilhetes.add(bilheteProm);
 
-        Bilhete bilheteFidel = new BilhetePromocional(df.parse("23/05/2025"), new BigDecimal(280), new BigDecimal(280.00), voosBilhete, bilhetes.size());
+        Bilhete bilheteFidel = new BilhetePromocional(df.parse("23/05/2025"), new BigDecimal(280), new BigDecimal(280.00), voosBilhete, bilhetes.size());//1
         bilhetes.add(bilheteFidel);
 
-        Bilhete bilheteSimples = new BilheteSimples(df.parse("20/03/2030"), new BigDecimal(780), new BigDecimal(780.88), voosBilhete, bilhetes.size());
+        Bilhete bilheteSimples = new BilheteSimples(df.parse("20/03/2030"), new BigDecimal(780), new BigDecimal(780.88), voosBilhete, bilhetes.size());//2
         bilhetes.add(bilheteSimples);
 
         LinkedList<Voo> voosBilhete2 = new LinkedList<Voo>();
@@ -357,7 +357,6 @@ public class Main {
 
     /**
      * compra o bilhete
-     *
      * @param sc scanner
      */
     public static void comprar(Scanner sc) {
@@ -463,9 +462,9 @@ public class Main {
         switch (opcao) {
             case 1:
                 System.out.println("Cidade: ");
-                String city = sc.next();
+                String city = sc.nextLine();
                 System.out.println("Data (dd/MM/yyyy) :");
-                String dateString = sc.next();
+                String dateString = sc.nextLine();
                 Date date;
                 try {
                     date = df.parse(dateString);
