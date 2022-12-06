@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -256,10 +257,12 @@ public class Main {
             switch (opcao) {
                 case 1:
                     Cliente novoCliente = cadastrarCliente(sc);
+                    System.out.println(novoCliente.toString());
                     clientes.add(novoCliente);
                     break;
                 case 2:
                     Trecho novoTrecho = cadastrarTrecho(sc);
+                    System.out.println(novoTrecho.toString());
                     trechos.add(novoTrecho);
                     break;
                 case 3:
@@ -429,7 +432,7 @@ public class Main {
 
         try {
             BigDecimal valorCompra = clienteCompra.comprarBilhete(bilheteCompra, useBoost);
-            System.out.println("O valor total da compra é: R$ " + valorCompra.toString());
+            System.out.println("O valor total da compra é: R$ " + valorCompra.setScale(2, RoundingMode.HALF_DOWN).toString());
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
